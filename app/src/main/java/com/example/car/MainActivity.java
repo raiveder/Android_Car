@@ -14,6 +14,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         new Handler().postDelayed(() -> startActivity(new Intent(MainActivity.this,
-                ShowCarsActivity.class)), 3500);
+                ShowCarsActivity.class)), 1000);
     }
 }

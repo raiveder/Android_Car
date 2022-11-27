@@ -37,7 +37,7 @@ public class AdapterCars extends BaseAdapter {
         return CarsList.get(i).getId();
     }
 
-    private Bitmap getUserImage(String image) {
+    private Bitmap getImage(String image) {
         byte[] bytes = Base64.decode(image, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
@@ -57,7 +57,7 @@ public class AdapterCars extends BaseAdapter {
         Horsepower.setText(Integer.toString(cars.getHorsepower()));
 
         if (!cars.getImage().equals("null")) {
-            Image.setImageBitmap(getUserImage(cars.getImage())); // ?
+            Image.setImageBitmap(getImage(cars.getImage()));
         }
 
         return v;

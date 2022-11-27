@@ -1,8 +1,9 @@
 <resources>
-    <string name="app_name">Car</string>
-    <string name="header">Мой авто</string>
+    <string name="app_name">Мой авто</string>
     <string name="auto">Авто</string>
+    <string name="photo">Фото</string>
     <string name="model">Модель</string>
-    <string name="horsepower">Л.с.</string>
+    <string name="power">Мощность</string>
     <string name="mileage">Пробег</string>
+    <string name="add">Добавить</string>
 </resources>
