@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CurrentCarActivity">
+
+    <TextView
+        android:id="@+id/tvHeader"
+        style="@style/Header"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="@string/app_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RelativeLayout
+        android:id="@+id/rlUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/rlInfo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvHeader">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            app:srcCompat="@drawable/stub" />
+
+        <TextView
+            android:id="@+id/tvBrandUp"
+            style="@style/Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="20dp"
+            android:text="Лада Гранта I"
+            android:textSize="20dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintBottom_toTopOf="@id/rlButtons"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rlUp">
+
+        <TextView
+            android:id="@+id/tvBrand"
+            style="@style/Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/brand"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvBrandValue"
+            style="@style/Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_toRightOf="@id/tvBrand"
+            android:text="Лада" />
+
+        <TextView
+            android:id="@+id/tvModel"
+            style="@style/Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvBrand"
+            android:text="@string/model"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvModelValue"
+            style="@style/Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvBrand"
+            android:layout_marginStart="10dp"
+            android:layout_toRightOf="@id/tvModel"
+            android:text="Гранта I" />
+
+        <TextView
+            android:id="@+id/tvEquipment"
+            style="@style/Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvModel"
+            android:text="@string/equipment"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvEquipmentValue"
+            style="@style/Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvModel"
+            android:layout_marginStart="10dp"
+            android:layout_toRightOf="@id/tvEquipment"
+            android:text="Норма" />
+
+        <TextView
+            android:id="@+id/tvTransmission"
+            style="@style/Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvEquipment"
+            android:text="@string/transmission"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvTransmissionValue"
+            style="@style/Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvEquipment"
+            android:layout_marginStart="10dp"
+            android:layout_toRightOf="@id/tvTransmission"
+            android:text="Механика" />
+
+        <TextView
+            android:id="@+id/tvEngine"
+            style="@style/Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTransmission"
+            android:text="@string/engine"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvEngineValue"
+            style="@style/Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTransmission"
+            android:layout_marginStart="10dp"
+            android:layout_toRightOf="@id/tvEngine"
+            android:text="ВАЗ 11186 8кл 87 л.с." />
+
+        <TextView
+            android:id="@+id/tvFuel"
+            style="@style/Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvEngine"
+            android:text="@string/fuel"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvFuelValue"
+            style="@style/Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvEngine"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/tvFuel"
+            android:text="Бензин" />
+
+        <TextView
+            android:id="@+id/tvDrive"
+            style="@style/Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvFuel"
+            android:text="@string/drive"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvDriveValue"
+            style="@style/Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvFuel"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/tvDrive"
+            android:text="Передний" />
+
+        <TextView
+            android:id="@+id/tvBody"
+            style="@style/Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvDrive"
+            android:text="@string/body"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvBodyValue"
+            style="@style/Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvDrive"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/tvBody"
+            android:text="Седан" />
+
+        <TextView
+            android:id="@+id/tvColor"
+            style="@style/Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvBody"
+            android:text="@string/color"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvColorValue"
+            style="@style/Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvBody"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/tvColor"
+            android:text="240 Белое облако" />
+
+        <TextView
+            android:id="@+id/tvWheel"
+            style="@style/Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvColor"
+            android:text="@string/wheel"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvWheelValue"
+            style="@style/Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvColor"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/tvWheel"
+            android:text="Левый" />
+
+        <TextView
+            android:id="@+id/tvVIN"
+            style="@style/Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvWheel"
+            android:text="@string/vin"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvVINValue"
+            style="@style/Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvWheel"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/tvVIN"
+            android:text="XTA129312030213" />
+
+        <TextView
+            android:id="@+id/tvMileage"
+            style="@style/Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvVIN"
+            android:text="@string/mileage"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvMileageValue"
+            style="@style/Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvVIN"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/tvMileage"
+            android:text="100078" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rlInfo">
+
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.widget.Button
+                android:id="@+id/btnService"
+                style="@style/Button"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:text="@string/service" />
+
+            <android.widget.Button
+                android:id="@+id/btnRefuel"
+                style="@style/Button"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="10dp"
+                android:layout_toRightOf="@id/btnService"
+                android:layout_weight="1"
+                android:text="@string/refuel" />
+        </LinearLayout>
+
+        <android.widget.Button
+            android:id="@+id/btnChange"
+            style="@style/ButtonGreen"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@id/ll"
+            android:layout_marginTop="10dp"
+            android:text="@string/change" />
+
+        <android.widget.Button
+            android:id="@+id/btnDelete"
+            style="@style/ButtonRed"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@id/btnChange"
+            android:layout_marginTop="10dp"
+            android:text="@string/delete" />
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

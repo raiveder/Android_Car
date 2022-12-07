@@ -5,5 +5,19 @@
     <string name="model">Модель</string>
     <string name="power">Мощность</string>
     <string name="mileage">Пробег</string>
-    <string name="add">Добавить</string>
+    <string name="add">Добавить новый автомобиль</string>
+    <string name="brand">Марка</string>
+    <string name="equipment">Комплектация</string>
+    <string name="transmission">Трансмиссия</string>
+    <string name="engine">Двигатель</string>
+    <string name="fuel">Топливо</string>
+    <string name="drive">Привод</string>
+    <string name="body">Кузов</string>
+    <string name="color">Цвет</string>
+    <string name="wheel">Руль</string>
+    <string name="vin">VIN</string>
+    <string name="service">Сервис</string>
+    <string name="refuel">Заправка</string>
+    <string name="change">Изменить информацию</string>
+    <string name="delete">Удалить</string>
 </resources>

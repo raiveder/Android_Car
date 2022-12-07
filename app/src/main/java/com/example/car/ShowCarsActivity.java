@@ -2,7 +2,9 @@ package com.example.car;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ListView;
 
 public class ShowCarsActivity extends AppCompatActivity {
@@ -12,8 +14,8 @@ public class ShowCarsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_cars);
 
-        ListView listView = findViewById(R.id.listView);
-
-        //listView.setAdapter(adapter);
+        Button btnAdd = findViewById(R.id.btnAdd);
+        btnAdd.setOnClickListener(view -> startActivity(
+                new Intent(ShowCarsActivity.this, AddCarActivity.class)));
     }
 }

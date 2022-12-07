@@ -13,6 +13,20 @@
         android:theme="@style/Theme.Car"
         tools:targetApi="31">
         <activity
+            android:name=".CurrentCarActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".AddCarActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ShowCarsActivity"
             android:exported="false">
             <meta-data
