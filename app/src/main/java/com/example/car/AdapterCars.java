@@ -1,5 +1,6 @@
 package com.example.car;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -37,11 +38,7 @@ public class AdapterCars extends BaseAdapter {
         return CarsList.get(i).getId();
     }
 
-    private Bitmap getImage(String image) {
-        byte[] bytes = Base64.decode(image, Base64.DEFAULT);
-        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-    }
-
+    @SuppressLint("SetTextI18n")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = View.inflate(ThisContext, R.layout.item_cars, null);
@@ -51,15 +48,20 @@ public class AdapterCars extends BaseAdapter {
         TextView Horsepower = v.findViewById(R.id.Horsepower);
         ImageView Image = v.findViewById(R.id.imageView);
 
-        Cars cars = CarsList.get(position);
-        Model.setText(cars.getModel());
-        Mileage.setText(Integer.toString(cars.getMileage()));
-        Horsepower.setText(Integer.toString(cars.getHorsepower()));
+        Cars car = CarsList.get(position);
+        Model.setText(Integer.toString(car.getIdModel()));
+        Mileage.setText(Integer.toString(car.getMileage())); // Подставить нормальные значения
+        Horsepower.setText(Integer.toString(car.getIdEngine()));
 
-        if (!cars.getImage().equals("null")) {
-            Image.setImageBitmap(getImage(cars.getImage()));
+        if (!car.getImage().equals("null")) {
+            Image.setImageBitmap(getImage(car.getImage()));
         }
 
         return v;
+    }
+
+    private Bitmap getImage(String image) {
+        byte[] bytes = Base64.decode(image, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
 }

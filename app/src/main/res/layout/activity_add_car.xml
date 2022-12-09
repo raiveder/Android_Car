@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".AddCarActivity">
 
-
     <TextView
         android:id="@+id/tvHeader"
         style="@style/Header"
@@ -21,21 +20,22 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="80dp"
+        app:layout_constraintBottom_toTopOf="@id/tvAdd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvHeader"
-        app:layout_constraintBottom_toTopOf="@id/tvAdd"
         app:srcCompat="@drawable/logo" />
 
     <TextView
         android:id="@+id/tvAdd"
-        android:textSize="25dp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:textAlignment="center"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="@string/add"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:text="@string/add_new_car"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="25dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imageView" />
@@ -46,7 +46,242 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvHeader">
+        app:layout_constraintTop_toBottomOf="@id/tvAdd">
+
+        <RelativeLayout
+            android:id="@+id/rlInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp">
+
+            <TextView
+                android:id="@+id/tvBrand"
+                style="@style/AddLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/brand"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spBrand"
+                style="@style/Spinner"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/tvBrand" />
+
+            <TextView
+                android:id="@+id/tvModel"
+                style="@style/AddLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/spBrand"
+                android:text="@string/model"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spModel"
+                style="@style/Spinner"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/tvModel" />
+
+            <TextView
+                android:id="@+id/tvGeneration"
+                style="@style/AddLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/spModel"
+                android:text="@string/generation"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spGeneration"
+                style="@style/Spinner"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/tvGeneration" />
+
+            <TextView
+                android:id="@+id/tvEquipment"
+                style="@style/AddLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/spGeneration"
+                android:text="@string/equipment"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/etEquipment"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/tvEquipment" />
+
+            <TextView
+                android:id="@+id/tvTransmission"
+                style="@style/AddLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/etEquipment"
+                android:text="@string/transmission"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spTransmission"
+                style="@style/Spinner"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/tvTransmission" />
+
+            <TextView
+                android:id="@+id/tvEngine"
+                style="@style/AddLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/spTransmission"
+                android:text="@string/engine"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spEngine"
+                style="@style/Spinner"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/tvEngine" />
+
+            <TextView
+                android:id="@+id/tvFuel"
+                style="@style/AddLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/spEngine"
+                android:text="@string/fuel"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spFuel"
+                style="@style/Spinner"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/tvFuel" />
+
+            <TextView
+                android:id="@+id/tvDrive"
+                style="@style/AddLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/spFuel"
+                android:text="@string/drive"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spDrive"
+                style="@style/Spinner"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/tvDrive" />
+
+            <TextView
+                android:id="@+id/tvBody"
+                style="@style/AddLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/spDrive"
+                android:text="@string/body"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spBody"
+                style="@style/Spinner"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/tvBody" />
+
+            <TextView
+                android:id="@+id/tvColor"
+                style="@style/AddLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/spBody"
+                android:text="@string/color"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spColor"
+                style="@style/Spinner"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/tvColor" />
+
+            <TextView
+                android:id="@+id/tvWheel"
+                style="@style/AddLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/spColor"
+                android:text="@string/wheel"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spWheel"
+                style="@style/Spinner"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/tvWheel" />
+
+            <TextView
+                android:id="@+id/tvVIN"
+                style="@style/AddLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/spWheel"
+                android:text="@string/vin"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/etVIN"
+                style="@style/EditText"
+                android:hint="XTA219010ET210809"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/tvVIN" />
+
+            <TextView
+                android:id="@+id/tvMileage"
+                style="@style/AddLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/etVIN"
+                android:text="@string/mileage"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/etMileage"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/tvMileage"
+                android:inputType="number" />
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"
+                android:layout_below="@id/etMileage"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/image_add" />
+
+            <android.widget.Button
+                android:id="@+id/btnAdd"
+                style="@style/Button"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/image"
+                android:layout_centerHorizontal="true"
+                android:layout_marginVertical="30dp"
+                android:text="@string/add" />
+        </RelativeLayout>
 
     </ScrollView>
 

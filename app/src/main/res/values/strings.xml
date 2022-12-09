@@ -4,9 +4,11 @@
     <string name="photo">Фото</string>
     <string name="model">Модель</string>
     <string name="power">Мощность</string>
-    <string name="mileage">Пробег</string>
-    <string name="add">Добавить новый автомобиль</string>
+    <string name="mileage">Пробег (км)</string>
+    <string name="add_new_car">Добавить новый автомобиль</string>
+    <string name="add">Добавить</string>
     <string name="brand">Марка</string>
+    <string name="generation">Поколение</string>
     <string name="equipment">Комплектация</string>
     <string name="transmission">Трансмиссия</string>
     <string name="engine">Двигатель</string>
