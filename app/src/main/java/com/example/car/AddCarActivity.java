@@ -4,13 +4,17 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,7 +31,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class AddCarActivity extends AppCompatActivity implements View.OnClickListener {
+@SuppressLint({"NonConstantResourceId", "UseCompatLoadingForDrawables"})
+public class AddCarActivity extends AppCompatActivity
+        implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     Spinner spBrand;
     Spinner spModel;
@@ -75,7 +81,6 @@ public class AddCarActivity extends AppCompatActivity implements View.OnClickLis
         spBrand = findViewById(R.id.spBrand);
         spModel = findViewById(R.id.spModel);
         spGeneration = findViewById(R.id.spGeneration);
-        etEquipment = findViewById(R.id.etEquipment);
         spTransmission = findViewById(R.id.spTransmission);
         spEngine = findViewById(R.id.spEngine);
         spFuel = findViewById(R.id.spFuel);
@@ -83,13 +88,82 @@ public class AddCarActivity extends AppCompatActivity implements View.OnClickLis
         spBody = findViewById(R.id.spBody);
         spColor = findViewById(R.id.spColor);
         spWheel = findViewById(R.id.spWheel);
+        etEquipment = findViewById(R.id.etEquipment);
         etVIN = findViewById(R.id.etVIN);
         etMileage = findViewById(R.id.etMileage);
         imageView = findViewById(R.id.image);
         btnAdd = findViewById(R.id.btnAdd);
 
+        setHandlers();
+    }
+
+    private void setHandlers() {
+
+        spBrand.setOnItemSelectedListener(this);
+        spModel.setOnItemSelectedListener(this);
+        spGeneration.setOnItemSelectedListener(this);
+        spTransmission.setOnItemSelectedListener(this);
+        spEngine.setOnItemSelectedListener(this);
+        spFuel.setOnItemSelectedListener(this);
+        spDrive.setOnItemSelectedListener(this);
+        spBody.setOnItemSelectedListener(this);
+        spColor.setOnItemSelectedListener(this);
+        spWheel.setOnItemSelectedListener(this);
+
         imageView.setOnClickListener(this);
         btnAdd.setOnClickListener(this);
+
+        etEquipment.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                etEquipment.setBackground(AddCarActivity.this
+                        .getDrawable(R.drawable.spinner_background));
+            }
+        });
+        etVIN.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                etVIN.setBackground(AddCarActivity.this
+                        .getDrawable(R.drawable.spinner_background));
+            }
+        });
+        etMileage.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                etMileage.setBackground(AddCarActivity.this
+                        .getDrawable(R.drawable.spinner_background));
+            }
+        });
     }
 
     private final ActivityResultLauncher<Intent> pickImg = registerForActivityResult(
@@ -111,7 +185,7 @@ public class AddCarActivity extends AppCompatActivity implements View.OnClickLis
 
     private void postData() {
 
-        ProgressBar PBWait = findViewById(R.id.pbWait); // Добавить ProgressBar
+        ProgressBar PBWait = findViewById(R.id.pbWait);
         PBWait.setVisibility(View.VISIBLE);
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -143,66 +217,86 @@ public class AddCarActivity extends AppCompatActivity implements View.OnClickLis
 
             @Override
             public void onResponse(Call<Cars> call, Response<Cars> response) {
+
                 Toast.makeText(AddCarActivity.this, "Автомобиль успешно добавлен",
                         Toast.LENGTH_LONG).show();
-
                 PBWait.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(Call<Cars> call, Throwable t) {
+
                 Toast.makeText(AddCarActivity.this, "Ошибка: " + t.getMessage(),
                         Toast.LENGTH_LONG).show();
-
                 PBWait.setVisibility(View.GONE);
             }
         });
     }
 
+
     private boolean checkData() {
 
-        if (spBrand.getSelectedItemPosition() == 0) {
-            Toast.makeText(this, "Выберите марку", Toast.LENGTH_LONG).show();
-            return false;
-        } else if (spBrand.getSelectedItemPosition() == 0) {
-            Toast.makeText(this, "Выберите модель", Toast.LENGTH_LONG).show();
-            return false;
-        } else if (spBrand.getSelectedItemPosition() == 0) {
-            Toast.makeText(this, "Выберите комплектацию", Toast.LENGTH_LONG).show();
-            return false;
-        } else if (spBrand.getSelectedItemPosition() == 0) {
-            Toast.makeText(this, "Выберите трансмиссию", Toast.LENGTH_LONG).show();
-            return false;
-        } else if (spBrand.getSelectedItemPosition() == 0) {
-            Toast.makeText(this, "Выберите двигатель", Toast.LENGTH_LONG).show();
-            return false;
-        } else if (spBrand.getSelectedItemPosition() == 0) {
-            Toast.makeText(this, "Выберите вид топлива", Toast.LENGTH_LONG).show();
-            return false;
-        } else if (spBrand.getSelectedItemPosition() == 0) {
-            Toast.makeText(this, "Выберите тип привода", Toast.LENGTH_LONG).show();
-            return false;
-        } else if (spBrand.getSelectedItemPosition() == 0) {
-            Toast.makeText(this, "Выберите тип кузова", Toast.LENGTH_LONG).show();
-            return false;
-        } else if (spBrand.getSelectedItemPosition() == 0) {
-            Toast.makeText(this, "Выберите цвет", Toast.LENGTH_LONG).show();
-            return false;
-        } else if (spBrand.getSelectedItemPosition() == 0) {
-            Toast.makeText(this, "Выберите расположения руля",
-                    Toast.LENGTH_LONG).show();
-            return false;
-        } else if (etVIN.getText().length() != 17) {
-            Toast.makeText(this, "VIN номер должен содержать 17 знаков",
-                    Toast.LENGTH_LONG).show();
-            return false;
-        } else if (Integer.parseInt(etMileage.getText().toString()) < 1) {
-            Toast.makeText(this, "Пробег не может быть меньше 0 км",
-                    Toast.LENGTH_LONG).show();
-            return false;
+        boolean result = true;
+
+        if (spBrand.getSelectedItemPosition() == -1) {
+            spBrand.setBackground(this.getDrawable(R.drawable.spinner_background_invalid));
+            result = false;
+        }
+        if (spModel.getSelectedItemPosition() == -1) {
+            spModel.setBackground(this.getDrawable(R.drawable.spinner_background_invalid));
+            result = false;
+        }
+        if (spGeneration.getSelectedItemPosition() == -1) {
+            spGeneration.setBackground(this.getDrawable(R.drawable.spinner_background_invalid));
+            result = false;
+        }
+        if (etEquipment.getText().length() == 0) {
+            etEquipment.setBackground(this.getDrawable(R.drawable.spinner_background_invalid));
+            result = false;
+        }
+        if (spTransmission.getSelectedItemPosition() == -1) {
+            spTransmission.setBackground(this.getDrawable(R.drawable.spinner_background_invalid));
+            result = false;
+        }
+        if (spEngine.getSelectedItemPosition() == -1) {
+            spEngine.setBackground(this.getDrawable(R.drawable.spinner_background_invalid));
+            result = false;
+        }
+        if (spFuel.getSelectedItemPosition() == -1) {
+            spFuel.setBackground(this.getDrawable(R.drawable.spinner_background_invalid));
+            result = false;
+        }
+        if (spDrive.getSelectedItemPosition() == -1) {
+            spDrive.setBackground(this.getDrawable(R.drawable.spinner_background_invalid));
+            result = false;
+        }
+        if (spBody.getSelectedItemPosition() == -1) {
+            spBody.setBackground(this.getDrawable(R.drawable.spinner_background_invalid));
+            result = false;
+        }
+        if (spColor.getSelectedItemPosition() == -1) {
+            spColor.setBackground(this.getDrawable(R.drawable.spinner_background_invalid));
+            result = false;
+        }
+        if (spWheel.getSelectedItemPosition() == -1) {
+            spWheel.setBackground(this.getDrawable(R.drawable.spinner_background_invalid));
+            result = false;
+        }
+        if (etVIN.getText().length() != 17) {
+            etVIN.setBackground(this.getDrawable(R.drawable.spinner_background_invalid));
+            result = false;
+        }
+        if (etMileage.getText().length() == 0 || Integer.parseInt(etMileage.getText().toString()) < 1) {
+            etMileage.setBackground(this.getDrawable(R.drawable.spinner_background_invalid));
+            result = false;
         }
 
-        return true;
+        if (!result) {
+            Toast.makeText(this, "Заполните недостающие данные",
+                    Toast.LENGTH_LONG).show();
+        }
+
+        return result;
     }
 
     @Override
@@ -219,10 +313,42 @@ public class AddCarActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.btnAdd:
 
                 if (checkData()) {
-                    postData();
+                    //postData();
                 }
 
                 break;
         }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+        switch (adapterView.getId()) {
+            case R.id.spBrand:
+                spBrand.setBackground(this.getDrawable(R.drawable.spinner_background));
+            case R.id.spModel:
+                spModel.setBackground(this.getDrawable(R.drawable.spinner_background));
+            case R.id.spGeneration:
+                spGeneration.setBackground(this.getDrawable(R.drawable.spinner_background));
+            case R.id.spTransmission:
+                spTransmission.setBackground(this.getDrawable(R.drawable.spinner_background));
+            case R.id.spEngine:
+                spEngine.setBackground(this.getDrawable(R.drawable.spinner_background));
+            case R.id.spFuel:
+                spFuel.setBackground(this.getDrawable(R.drawable.spinner_background));
+            case R.id.spDrive:
+                spDrive.setBackground(this.getDrawable(R.drawable.spinner_background));
+            case R.id.spBody:
+                spBody.setBackground(this.getDrawable(R.drawable.spinner_background));
+            case R.id.spColor:
+                spColor.setBackground(this.getDrawable(R.drawable.spinner_background));
+            case R.id.spWheel:
+                spWheel.setBackground(this.getDrawable(R.drawable.spinner_background));
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }
