@@ -289,37 +289,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rlInfo">
 
-        <LinearLayout
-            android:id="@+id/ll"
+        <android.widget.Button
+            android:id="@+id/btnService"
+            style="@style/Button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <android.widget.Button
-                android:id="@+id/btnService"
-                style="@style/Button"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:text="@string/service" />
-
-            <android.widget.Button
-                android:id="@+id/btnRefuel"
-                style="@style/Button"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginStart="10dp"
-                android:layout_toRightOf="@id/btnService"
-                android:layout_weight="1"
-                android:text="@string/refuel" />
-        </LinearLayout>
+            android:layout_height="40dp"
+            android:text="@string/service" />
 
         <android.widget.Button
             android:id="@+id/btnChange"
             style="@style/ButtonGreen"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_below="@id/ll"
+            android:layout_below="@id/btnService"
             android:layout_marginTop="10dp"
             android:text="@string/change" />
 

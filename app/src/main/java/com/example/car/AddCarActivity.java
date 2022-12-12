@@ -74,6 +74,11 @@ public class AddCarActivity extends AppCompatActivity
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, test);
         spBrand.setAdapter(adapter);
         spModel.setAdapter(adapter);
+
+        Bundle arg = getIntent().getExtras();
+        if (arg != null) {
+            Cars car = (Cars) arg.getSerializable("Car");
+        }
     }
 
     private void initializeComponent() {
@@ -233,20 +238,19 @@ public class AddCarActivity extends AppCompatActivity
         });
     }
 
-
     private boolean checkData() {
 
         boolean result = true;
 
-        if (spBrand.getSelectedItemPosition() == -1) {
+        if (spBrand.getSelectedItemPosition() == 0) {
             spBrand.setBackground(this.getDrawable(R.drawable.spinner_background_invalid));
             result = false;
         }
-        if (spModel.getSelectedItemPosition() == -1) {
+        if (spModel.getSelectedItemPosition() == 0) {
             spModel.setBackground(this.getDrawable(R.drawable.spinner_background_invalid));
             result = false;
         }
-        if (spGeneration.getSelectedItemPosition() == -1) {
+        if (spGeneration.getSelectedItemPosition() == 0) {
             spGeneration.setBackground(this.getDrawable(R.drawable.spinner_background_invalid));
             result = false;
         }
@@ -254,31 +258,31 @@ public class AddCarActivity extends AppCompatActivity
             etEquipment.setBackground(this.getDrawable(R.drawable.spinner_background_invalid));
             result = false;
         }
-        if (spTransmission.getSelectedItemPosition() == -1) {
+        if (spTransmission.getSelectedItemPosition() == 0) {
             spTransmission.setBackground(this.getDrawable(R.drawable.spinner_background_invalid));
             result = false;
         }
-        if (spEngine.getSelectedItemPosition() == -1) {
+        if (spEngine.getSelectedItemPosition() == 0) {
             spEngine.setBackground(this.getDrawable(R.drawable.spinner_background_invalid));
             result = false;
         }
-        if (spFuel.getSelectedItemPosition() == -1) {
+        if (spFuel.getSelectedItemPosition() == 0) {
             spFuel.setBackground(this.getDrawable(R.drawable.spinner_background_invalid));
             result = false;
         }
-        if (spDrive.getSelectedItemPosition() == -1) {
+        if (spDrive.getSelectedItemPosition() == 0) {
             spDrive.setBackground(this.getDrawable(R.drawable.spinner_background_invalid));
             result = false;
         }
-        if (spBody.getSelectedItemPosition() == -1) {
+        if (spBody.getSelectedItemPosition() == 0) {
             spBody.setBackground(this.getDrawable(R.drawable.spinner_background_invalid));
             result = false;
         }
-        if (spColor.getSelectedItemPosition() == -1) {
+        if (spColor.getSelectedItemPosition() == 0) {
             spColor.setBackground(this.getDrawable(R.drawable.spinner_background_invalid));
             result = false;
         }
-        if (spWheel.getSelectedItemPosition() == -1) {
+        if (spWheel.getSelectedItemPosition() == 0) {
             spWheel.setBackground(this.getDrawable(R.drawable.spinner_background_invalid));
             result = false;
         }

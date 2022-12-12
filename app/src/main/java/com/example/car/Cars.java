@@ -1,6 +1,8 @@
 package com.example.car;
 
-public class Cars {
+import java.io.Serializable;
+
+public class Cars implements Serializable {
 
     private int Id;
     private Integer IdModel;
