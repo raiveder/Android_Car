@@ -2,12 +2,14 @@ package com.example.car;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+@SuppressLint({"NonConstantResourceId", "SetTextI18n"})
 public class CurrentCarActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView tvBrand;
@@ -26,7 +28,7 @@ public class CurrentCarActivity extends AppCompatActivity implements View.OnClic
     Button btnChange;
     Button btnDelete;
 
-    Cars car;
+    CarsValue car;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,7 @@ public class CurrentCarActivity extends AppCompatActivity implements View.OnClic
         initializeComponent();
 
         Bundle arg = getIntent().getExtras();
-        CarsValue car = (CarsValue) arg.getSerializable("Car");
+        car = (CarsValue) arg.getSerializable("Car");
 
         setData();
     }
@@ -67,6 +69,18 @@ public class CurrentCarActivity extends AppCompatActivity implements View.OnClic
 
     private void setData() {
 
+        tvBrand.setText(car.getBrand());
+        tvModel.setText(car.getModel());
+        tvEquipment.setText(car.getEquipment());
+        tvTransmission.setText(car.getTransmission());
+        tvEngine.setText(car.getEngine() + " кл. " + car.getHorsepower() + " л.с.");
+        tvFuel.setText(car.getFuel());
+        tvDrive.setText(car.getDrive());
+        tvBody.setText(car.getBody());
+        tvColor.setText(car.getColors());
+        tvWheel.setText(car.getWheel());
+        tvVIN.setText(car.getVIN());
+        tvMileage.setText(car.getMileage() + " км");
     }
 
     @Override
@@ -79,7 +93,7 @@ public class CurrentCarActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.btnChange:
                 Intent intent = new Intent(this, AddCarActivity.class);
-                intent.putExtra("Car", car);
+                intent.putExtra("Id", car.getId());
                 startActivity(intent);
                 break;
             case R.id.btnDelete:

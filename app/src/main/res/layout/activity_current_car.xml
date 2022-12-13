@@ -66,8 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_toRightOf="@id/tvBrand"
-            android:text="Лада" />
+            android:layout_toRightOf="@id/tvBrand" />
 
         <TextView
             android:id="@+id/tvModel"
@@ -85,8 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tvBrand"
             android:layout_marginStart="10dp"
-            android:layout_toRightOf="@id/tvModel"
-            android:text="Гранта I" />
+            android:layout_toRightOf="@id/tvModel" />
 
         <TextView
             android:id="@+id/tvEquipment"
@@ -104,8 +102,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tvModel"
             android:layout_marginStart="10dp"
-            android:layout_toRightOf="@id/tvEquipment"
-            android:text="Норма" />
+            android:layout_toRightOf="@id/tvEquipment" />
 
         <TextView
             android:id="@+id/tvTransmission"
@@ -123,8 +120,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tvEquipment"
             android:layout_marginStart="10dp"
-            android:layout_toRightOf="@id/tvTransmission"
-            android:text="Механика" />
+            android:layout_toRightOf="@id/tvTransmission" />
 
         <TextView
             android:id="@+id/tvEngine"
@@ -142,8 +138,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tvTransmission"
             android:layout_marginStart="10dp"
-            android:layout_toRightOf="@id/tvEngine"
-            android:text="ВАЗ 11186 8кл 87 л.с." />
+            android:layout_toRightOf="@id/tvEngine" />
 
         <TextView
             android:id="@+id/tvFuel"
@@ -161,8 +156,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tvEngine"
             android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/tvFuel"
-            android:text="Бензин" />
+            android:layout_toEndOf="@id/tvFuel" />
 
         <TextView
             android:id="@+id/tvDrive"
@@ -180,8 +174,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tvFuel"
             android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/tvDrive"
-            android:text="Передний" />
+            android:layout_toEndOf="@id/tvDrive" />
 
         <TextView
             android:id="@+id/tvBody"
@@ -199,8 +192,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tvDrive"
             android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/tvBody"
-            android:text="Седан" />
+            android:layout_toEndOf="@id/tvBody" />
 
         <TextView
             android:id="@+id/tvColor"
@@ -218,8 +210,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tvBody"
             android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/tvColor"
-            android:text="240 Белое облако" />
+            android:layout_toEndOf="@id/tvColor" />
 
         <TextView
             android:id="@+id/tvWheel"
@@ -237,8 +228,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tvColor"
             android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/tvWheel"
-            android:text="Левый" />
+            android:layout_toEndOf="@id/tvWheel" />
 
         <TextView
             android:id="@+id/tvVIN"
@@ -256,8 +246,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tvWheel"
             android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/tvVIN"
-            android:text="XTA129312030213" />
+            android:layout_toEndOf="@id/tvVIN" />
 
         <TextView
             android:id="@+id/tvMileage"
@@ -275,8 +264,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tvVIN"
             android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/tvMileage"
-            android:text="100078" />
+            android:layout_toEndOf="@id/tvMileage" />
     </RelativeLayout>
 
     <RelativeLayout

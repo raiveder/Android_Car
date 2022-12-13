@@ -5,16 +5,16 @@ import java.io.Serializable;
 public class Cars implements Serializable {
 
     private int Id;
-    private Integer IdModel;
-    private Integer IdGeneration;
+    private Integer Id_model;
+    private Integer Id_generation;
     private String Equipment;
-    private Integer IdTransmission;
-    private Integer IdEngine;
-    private Integer IdFuel;
-    private Integer IdDrive;
-    private Integer IdBody;
-    private Integer IdColor;
-    private Integer IdWheel;
+    private Integer Id_transmission;
+    private Integer Id_engine;
+    private Integer Id_fuel;
+    private Integer Id_drive;
+    private Integer Id_body;
+    private Integer Id_color;
+    private Integer Id_wheel;
     private String VIN;
     private Integer Mileage;
     private String Image;
@@ -22,30 +22,28 @@ public class Cars implements Serializable {
     public Cars(int id, Integer idModel, Integer idGeneration, String equipment, Integer idTransmission,
                 Integer idEngine, Integer idFuel, Integer idDrive, Integer idBody, Integer idColor,
                 Integer idWheel, String VIN, Integer mileage, String image) {
-        if (id != 0) {
-            Id = id;
-        }
-        IdModel = idModel;
-        IdGeneration = idGeneration;
+        Id = id;
+        Id_model = idModel;
+        Id_generation = idGeneration;
         Equipment = equipment;
-        IdTransmission = idTransmission;
-        IdEngine = idEngine;
-        IdFuel = idFuel;
-        IdDrive = idDrive;
-        IdBody = idBody;
-        IdColor = idColor;
-        IdWheel = idWheel;
+        Id_transmission = idTransmission;
+        Id_engine = idEngine;
+        Id_fuel = idFuel;
+        Id_drive = idDrive;
+        Id_body = idBody;
+        Id_color = idColor;
+        Id_wheel = idWheel;
         this.VIN = VIN;
         Mileage = mileage;
         Image = image;
     }
 
     public void setIdModel(Integer idModel) {
-        IdModel = idModel;
+        Id_model = idModel;
     }
 
     public void setIdGeneration(Integer idGeneration) {
-        IdGeneration = idGeneration;
+        Id_generation = idGeneration;
     }
 
     public void setEquipment(String Equipment) {
@@ -53,31 +51,31 @@ public class Cars implements Serializable {
     }
 
     public void setIdTransmission(Integer idTransmission) {
-        IdTransmission = idTransmission;
+        Id_transmission = idTransmission;
     }
 
     public void setIdEngine(Integer idEngine) {
-        IdEngine = idEngine;
+        Id_engine = idEngine;
     }
 
     public void setIdFuel(Integer idFuel) {
-        IdFuel = idFuel;
+        Id_fuel = idFuel;
     }
 
     public void setIdDrive(Integer idDrive) {
-        IdDrive = idDrive;
+        Id_drive = idDrive;
     }
 
     public void setIdBody(Integer idBody) {
-        IdBody = idBody;
+        Id_body = idBody;
     }
 
     public void setIdColor(Integer idColor) {
-        IdColor = idColor;
+        Id_color = idColor;
     }
 
     public void setIdWheel(Integer idWheel) {
-        IdWheel = idWheel;
+        Id_wheel = idWheel;
     }
 
     public void setVIN(String VIN) {
@@ -97,11 +95,11 @@ public class Cars implements Serializable {
     }
 
     public Integer getIdModel() {
-        return IdModel;
+        return Id_model;
     }
 
     public Integer getIdGeneration() {
-        return IdGeneration;
+        return Id_generation;
     }
 
     public String getEquipment() {
@@ -109,31 +107,31 @@ public class Cars implements Serializable {
     }
 
     public Integer getIdTransmission() {
-        return IdTransmission;
+        return Id_transmission;
     }
 
     public Integer getIdEngine() {
-        return IdEngine;
+        return Id_engine;
     }
 
     public Integer getIdFuel() {
-        return IdFuel;
+        return Id_fuel;
     }
 
     public Integer getIdDrive() {
-        return IdDrive;
+        return Id_drive;
     }
 
     public Integer getIdBody() {
-        return IdBody;
+        return Id_body;
     }
 
     public Integer getIdColor() {
-        return IdColor;
+        return Id_color;
     }
 
     public Integer getIdWheel() {
-        return IdWheel;
+        return Id_wheel;
     }
 
     public String getVIN() {

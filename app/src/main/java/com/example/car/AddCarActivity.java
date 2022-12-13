@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -24,6 +25,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.InputStream;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,17 +53,10 @@ public class AddCarActivity extends AppCompatActivity
     ImageView imageView;
     Button btnAdd;
 
-    int[] IdBrands;
-    int[] IdModels;
-    int[] IdGenerations;
-    int[] IdTransmissions;
-    int[] IdEngines;
-    int[] IdFuels;
-    int[] IdDrives;
-    int[] IdBodys;
-    int[] IdColors;
-    int[] IdWheels;
+    int Id;
     String ImageString;
+    ParametrsCar Parametrs;
+    String[][] Colors;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,15 +65,12 @@ public class AddCarActivity extends AppCompatActivity
 
         initializeComponent();
 
-        String[] test = new String[]{"test", "test", "test"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, test);
-        spBrand.setAdapter(adapter);
-        spModel.setAdapter(adapter);
-
         Bundle arg = getIntent().getExtras();
         if (arg != null) {
-            Cars car = (Cars) arg.getSerializable("Car");
+            Id = arg.getInt("Id");
         }
+
+        getParameters();
     }
 
     private void initializeComponent() {
@@ -114,7 +106,6 @@ public class AddCarActivity extends AppCompatActivity
         spBody.setOnItemSelectedListener(this);
         spColor.setOnItemSelectedListener(this);
         spWheel.setOnItemSelectedListener(this);
-
         imageView.setOnClickListener(this);
         btnAdd.setOnClickListener(this);
 
@@ -135,6 +126,7 @@ public class AddCarActivity extends AppCompatActivity
                         .getDrawable(R.drawable.spinner_background));
             }
         });
+
         etVIN.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -152,6 +144,7 @@ public class AddCarActivity extends AppCompatActivity
                         .getDrawable(R.drawable.spinner_background));
             }
         });
+
         etMileage.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -169,6 +162,128 @@ public class AddCarActivity extends AppCompatActivity
                         .getDrawable(R.drawable.spinner_background));
             }
         });
+    }
+
+    private void getParameters() {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://ngknn.ru:5001/NGKNN/СергеевДЕ/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+        Call<ParametrsCar> call = retrofitAPI.getParametrs();
+        call.enqueue(new Callback<ParametrsCar>() {
+
+            @Override
+            public void onResponse(Call<ParametrsCar> call, Response<ParametrsCar> response) {
+
+                Parametrs = response.body();
+                setParameters();
+            }
+
+            @Override
+            public void onFailure(Call<ParametrsCar> call, Throwable t) {
+
+                Toast.makeText(AddCarActivity.this, "Ошибка: " + t.getMessage(),
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void setParameters() {
+
+        spBrand.setAdapter(new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, Parametrs.getBrandsValues()));
+
+        spModel.setAdapter(new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, Parametrs.getModelsValues()));
+
+        spGeneration.setAdapter(new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, Parametrs.getGenerationsValues()));
+
+        spTransmission.setAdapter(new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, Parametrs.getTransmissionsValues()));
+
+        spEngine.setAdapter(new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, Parametrs.getEnginesValues()));
+
+        spFuel.setAdapter(new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, Parametrs.getFuel_TypesValues()));
+
+        spDrive.setAdapter(new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, Parametrs.getDrivesValues()));
+
+        spBody.setAdapter(new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, Parametrs.getBodysValues()));
+
+        spColor.setAdapter(new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, Parametrs.getColorsValues()));
+
+        spWheel.setAdapter(new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, Parametrs.getWheelsValues()));
+
+        if (Id != 0) {
+            Colors = new String[Parametrs.getColorsValues().length][2];
+            for (int i = 0; i < Colors.length; i++) {
+                Colors[i][0] = String.valueOf(i + 1);
+                Colors[i][1] = Parametrs.getColorsValues()[i];
+            }
+            getParametersValue();
+        }
+    }
+
+    private void getParametersValue() {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://ngknn.ru:5001/NGKNN/СергеевДЕ/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+        Call<Cars> call = retrofitAPI.getCarById(Id);
+        call.enqueue(new Callback<Cars>() {
+
+            @Override
+            public void onResponse(Call<Cars> call, Response<Cars> response) {
+
+                Cars car = response.body();
+                setParametersValue(car);
+            }
+
+            @Override
+            public void onFailure(Call<Cars> call, Throwable t) {
+
+                Toast.makeText(AddCarActivity.this, "Ошибка: " + t.getMessage(),
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void setParametersValue(Cars car) {
+
+        int idColor = 0;
+        for (int i = 0; i < Colors.length; i++) {
+            if (Integer.parseInt(Colors[i][0]) == car.getIdColor()) {
+                idColor = i;
+                break;
+            }
+        }
+
+        //spBrand;
+        spModel.setSelection(car.getIdModel() - 1);
+        spGeneration.setSelection(car.getIdGeneration() - 1);
+        etEquipment.setText(car.getEquipment());
+        spTransmission.setSelection(car.getIdTransmission() - 1);
+        spEngine.setSelection(car.getIdEngine() - 1);
+        spFuel.setSelection(car.getIdFuel() - 1);
+        spDrive.setSelection(car.getIdDrive() - 1);
+        spBody.setSelection(car.getIdBody() - 1);
+        spColor.setSelection(idColor);
+        spWheel.setSelection(car.getIdWheel() - 1);
+        etVIN.setText(car.getVIN());
+        etMileage.setText(String.valueOf(car.getMileage()));
+        //imageView;
     }
 
     private final ActivityResultLauncher<Intent> pickImg = registerForActivityResult(
@@ -202,22 +317,21 @@ public class AddCarActivity extends AppCompatActivity
 
         Cars car = new Cars(
                 0,
-                IdModels[spModel.getSelectedItemPosition()],
-                IdGenerations[spGeneration.getSelectedItemPosition()],
+                spModel.getSelectedItemPosition() + 1,
+                spGeneration.getSelectedItemPosition() + 1,
                 etEquipment.getText().toString(),
-                IdTransmissions[spTransmission.getSelectedItemPosition()],
-                IdEngines[spEngine.getSelectedItemPosition()],
-                IdFuels[spFuel.getSelectedItemPosition()],
-                IdDrives[spDrive.getSelectedItemPosition()],
-                IdBodys[spBody.getSelectedItemPosition()],
-                IdColors[spColor.getSelectedItemPosition()],
-                IdWheels[spWheel.getSelectedItemPosition()],
+                spTransmission.getSelectedItemPosition() + 1,
+                spEngine.getSelectedItemPosition() + 1,
+                spFuel.getSelectedItemPosition() + 1,
+                spDrive.getSelectedItemPosition() + 1,
+                spBody.getSelectedItemPosition() + 1,
+                spColor.getSelectedItemPosition() + 1, // Подумать
+                spWheel.getSelectedItemPosition() + 1,
                 etVIN.getText().toString(),
                 Integer.parseInt(etMileage.getText().toString()),
                 ImageString);
 
         Call<Cars> call = retrofitAPI.createCar(car);
-
         call.enqueue(new Callback<Cars>() {
 
             @Override

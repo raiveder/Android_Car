@@ -49,11 +49,11 @@ public class AdapterCars extends BaseAdapter {
         ImageView Image = v.findViewById(R.id.imageView);
 
         CarsValue car = CarsList.get(position);
-        Model.setText(car.getModel());
-        Mileage.setText(Integer.toString(car.getMileage()) + " км");
-        Horsepower.setText(car.getEngine() + " л.с.");
+        Model.setText(car.getBrand() + "\n" + car.getModel() + " " + car.getGeneration());
+        Mileage.setText(car.getMileage() + " км");
+        Horsepower.setText(car.getHorsepower() + " л.с.");
 
-        if (car.getImage() != null || !car.getImage().equals("null")) {
+        if (!car.getImage().equals("null")) {
             Image.setImageBitmap(getImage(car.getImage()));
         }
 

@@ -11,11 +11,14 @@ import retrofit2.http.Query;
 
 public interface RetrofitAPI {
     @GET("Cars/")
-    Call<List<CarsValue>> getCarById(@Query("Id_car") int id);
+    Call<Cars> getCarById(@Query("id") int id);
 
     @GET("Cars/")
     Call<List<CarsValue>> getCars();
 
     @POST("Cars/")
     Call<Cars> createCar(@Body Cars car);
+
+    @GET("Cars/getParametrs")
+    Call<ParametrsCar> getParametrs();
 }
