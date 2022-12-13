@@ -13,12 +13,13 @@ import android.widget.TextView;
 
 import java.util.List;
 
+@SuppressLint({"SetTextI18n", "ViewHolder"})
 public class AdapterCars extends BaseAdapter {
 
     private Context ThisContext;
-    private List<Cars> CarsList;
+    private List<CarsValue> CarsList;
 
-    public AdapterCars(Context context, List<Cars> carsList) {
+    public AdapterCars(Context context, List<CarsValue> carsList) {
         ThisContext = context;
         CarsList = carsList;
     }
@@ -38,7 +39,6 @@ public class AdapterCars extends BaseAdapter {
         return CarsList.get(i).getId();
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = View.inflate(ThisContext, R.layout.item_cars, null);
@@ -48,12 +48,12 @@ public class AdapterCars extends BaseAdapter {
         TextView Horsepower = v.findViewById(R.id.Horsepower);
         ImageView Image = v.findViewById(R.id.imageView);
 
-        Cars car = CarsList.get(position);
-        Model.setText(Integer.toString(car.getIdModel()));
-        Mileage.setText(Integer.toString(car.getMileage())); // Подставить нормальные значения
-        Horsepower.setText(Integer.toString(car.getIdEngine()));
+        CarsValue car = CarsList.get(position);
+        Model.setText(car.getModel());
+        Mileage.setText(Integer.toString(car.getMileage()) + " км");
+        Horsepower.setText(car.getEngine() + " л.с.");
 
-        if (!car.getImage().equals("null")) {
+        if (car.getImage() != null || !car.getImage().equals("null")) {
             Image.setImageBitmap(getImage(car.getImage()));
         }
 

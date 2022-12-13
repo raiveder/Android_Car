@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -37,7 +36,7 @@ public class CurrentCarActivity extends AppCompatActivity implements View.OnClic
         initializeComponent();
 
         Bundle arg = getIntent().getExtras();
-        car = (Cars) arg.getSerializable("Car");
+        CarsValue car = (CarsValue) arg.getSerializable("Car");
 
         setData();
     }
