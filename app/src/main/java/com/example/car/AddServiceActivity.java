@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -15,7 +16,6 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
     ListView lvDetails;
     ListView lvExpendables;
     String[] details;
-    boolean[] IsAdded;
     int Id_car;
 
     @Override
@@ -24,14 +24,14 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_add_service);
 
         initializeComponent();
+        uploadDetails();
+    }
+
+    private void initializeComponent() {
 
         Bundle arg = getIntent().getExtras();
         Id_car = arg.getInt("Id");
         details = arg.getStringArray("Details");
-        IsAdded = arg.getBooleanArray("Added");
-    }
-
-    private void initializeComponent() {
 
         lvDetails = findViewById(R.id.lvDetails);
         lvExpendables = findViewById(R.id.lvExpendables);
@@ -42,6 +42,22 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
         btnAddExpendables.setOnClickListener(this);
     }
 
+    private void uploadDetails() {
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1);
+
+        if (details.length != 0) {
+            for (int i = 0; i < details.length; i++) {
+                if (details[i] != null) {
+                    adapter.add(details[i]);
+                }
+            }
+        }
+
+        lvDetails.setAdapter(adapter);
+    }
+
     @Override
     public void onClick(View v) {
 
@@ -49,8 +65,8 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
 
             case R.id.btnAddDetails:
                 Intent intent = new Intent(this, AddDetailsActivity.class);
+                intent.putExtra("Id_car", Id_car);
                 intent.putExtra("Details", details);
-                intent.putExtra("Added", IsAdded);
                 startActivity(intent);
                 break;
             case R.id.btnAddExpendables:

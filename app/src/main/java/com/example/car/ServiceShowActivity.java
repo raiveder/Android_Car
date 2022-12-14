@@ -18,11 +18,15 @@ public class ServiceShowActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_show);
 
+        initializeComponent();
+    }
+
+    private void initializeComponent() {
+
+        Id_car = getIntent().getExtras().getInt("Id");
+
         Button btnAdd = findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(this);
-
-        Bundle arg = getIntent().getExtras();
-        Id_car = arg.getInt("Id");
     }
 
     @Override
@@ -34,7 +38,6 @@ public class ServiceShowActivity extends AppCompatActivity implements View.OnCli
                 Intent intent = new Intent(this, AddServiceActivity.class);
                 intent.putExtra("Id", Id_car);
                 intent.putExtra("Details", new String[]{});
-                intent.putExtra("Added", new boolean[]{});
                 startActivity(intent);
                 break;
         }
