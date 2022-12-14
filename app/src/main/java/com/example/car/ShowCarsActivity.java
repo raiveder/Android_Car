@@ -40,7 +40,7 @@ public class ShowCarsActivity extends AppCompatActivity implements View.OnClickL
         listView = findViewById(R.id.listView);
         listView.setOnItemClickListener((arg0, arg1, position, arg3) -> {
             Intent intent = new Intent(this, CurrentCarActivity.class);
-            intent.putExtra("Car", listCar.get(position));
+            intent.putExtra("Id", listCar.get(position).getId());
             startActivity(intent);
         });
 

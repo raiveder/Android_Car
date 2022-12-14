@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +38,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AddCarActivity extends AppCompatActivity
         implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
+    ScrollView scrollView;
+    ProgressBar pbWait;
     Spinner spBrand;
     Spinner spModel;
     Spinner spGeneration;
@@ -78,6 +82,8 @@ public class AddCarActivity extends AppCompatActivity
 
     private void initializeComponent() {
 
+        scrollView = findViewById(R.id.scrollView);
+        pbWait = findViewById(R.id.pbWait);
         spBrand = findViewById(R.id.spBrand);
         spModel = findViewById(R.id.spModel);
         spGeneration = findViewById(R.id.spGeneration);
@@ -266,6 +272,9 @@ public class AddCarActivity extends AppCompatActivity
                 }
             }
             getParametersValue(idBrand);
+        } else {
+            pbWait.setVisibility(View.GONE);
+            scrollView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -312,6 +321,9 @@ public class AddCarActivity extends AppCompatActivity
         etVIN.setText(car.getVIN());
         etMileage.setText(String.valueOf(car.getMileage()));
         imageView.setImageBitmap(Images.getBitmap(this, car.getImage()));
+
+        pbWait.setVisibility(View.GONE);
+        scrollView.setVisibility(View.VISIBLE);
     }
 
     private final ActivityResultLauncher<Intent> pickImg = registerForActivityResult(
@@ -356,8 +368,7 @@ public class AddCarActivity extends AppCompatActivity
 
     private void postData() {
 
-        ProgressBar PBWait = findViewById(R.id.pbWait);
-        PBWait.setVisibility(View.VISIBLE);
+        pbWait.setVisibility(View.VISIBLE);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://ngknn.ru:5001/NGKNN/СергеевДЕ/api/")
@@ -390,7 +401,9 @@ public class AddCarActivity extends AppCompatActivity
 
                 Toast.makeText(AddCarActivity.this, "Автомобиль успешно добавлен",
                         Toast.LENGTH_LONG).show();
-                PBWait.setVisibility(View.GONE);
+                pbWait.setVisibility(View.GONE);
+                new Handler().postDelayed(() -> startActivity(new Intent(
+                        AddCarActivity.this, ShowCarsActivity.class)), 500);
             }
 
             @Override
@@ -398,15 +411,14 @@ public class AddCarActivity extends AppCompatActivity
 
                 Toast.makeText(AddCarActivity.this, "Ошибка: " + t.getMessage(),
                         Toast.LENGTH_LONG).show();
-                PBWait.setVisibility(View.GONE);
+                pbWait.setVisibility(View.GONE);
             }
         });
     }
 
     private void putData() {
 
-        ProgressBar PBWait = findViewById(R.id.pbWait);
-        PBWait.setVisibility(View.VISIBLE);
+        pbWait.setVisibility(View.VISIBLE);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://ngknn.ru:5001/NGKNN/СергеевДЕ/api/")
@@ -439,7 +451,14 @@ public class AddCarActivity extends AppCompatActivity
 
                 Toast.makeText(AddCarActivity.this, "Автомобиль успешно изменён",
                         Toast.LENGTH_LONG).show();
-                PBWait.setVisibility(View.GONE);
+                pbWait.setVisibility(View.GONE);
+
+                new Handler().postDelayed(() -> {
+                    Intent intent = new Intent(AddCarActivity.this,
+                            CurrentCarActivity.class);
+                    intent.putExtra("Id", car.getId());
+                    startActivity(intent);
+                }, 500);
             }
 
             @Override
@@ -447,7 +466,7 @@ public class AddCarActivity extends AppCompatActivity
 
                 Toast.makeText(AddCarActivity.this, "Ошибка: " + t.getMessage(),
                         Toast.LENGTH_LONG).show();
-                PBWait.setVisibility(View.GONE);
+                pbWait.setVisibility(View.GONE);
             }
         });
     }

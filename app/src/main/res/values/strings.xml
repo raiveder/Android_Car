@@ -22,4 +22,8 @@
     <string name="refuel">Заправка</string>
     <string name="change">Изменить информацию</string>
     <string name="delete">Удалить</string>
+    <string name="details">Детали</string>
+    <string name="add_details">Добавить детали</string>
+    <string name="expendables">Расходники</string>
+    <string name="add_expendables">Добавить расходники</string>
 </resources>

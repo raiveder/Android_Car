@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Cars implements Serializable {
 
-    private int Id;
+    private int Id_car;
     private Integer Id_model;
     private Integer Id_generation;
     private String Equipment;
@@ -19,12 +19,12 @@ public class Cars implements Serializable {
     private Integer Mileage;
     private String Image;
 
-    public Cars(int id, Integer idModel, Integer idGeneration, String equipment, Integer idTransmission,
+    public Cars(int id_car, Integer idModel, Integer idGeneration, String equipment, Integer idTransmission,
                 Integer idEngine, Integer idFuel, Integer idDrive, Integer idBody, Integer idColor,
                 Integer idWheel, String VIN, Integer mileage, String image) {
 
-        if (id != 0) {
-            Id = id;
+        if (id_car != 0) {
+            Id_car = id_car;
         }
         Id_model = idModel;
         Id_generation = idGeneration;
@@ -94,7 +94,7 @@ public class Cars implements Serializable {
     }
 
     public int getId() {
-        return Id;
+        return Id_car;
     }
 
     public Integer getIdModel() {

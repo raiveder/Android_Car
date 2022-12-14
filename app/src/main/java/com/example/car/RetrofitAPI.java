@@ -25,10 +25,13 @@ public interface RetrofitAPI {
 
     @POST("Cars/")
     Call<Cars> createCar(@Body Cars car);
-    @Headers({"Content-Type: application/json"})
-    @PUT("Cars/{id}")
-    Call<Cars> updateCar(@Path("id") int id, @Body Cars car);
+
+    @PUT("Cars/")
+    Call<Cars> updateCar(@Query("id") int id, @Body Cars car);
 
     @DELETE("Cars/")
     Call<Cars> deleteCar(@Query("id") int id);
+
+    @GET("Details/")
+    Call<List<Details>> getDetails();
 }
