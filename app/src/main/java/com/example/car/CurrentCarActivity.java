@@ -8,6 +8,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 @SuppressLint({"NonConstantResourceId", "SetTextI18n"})
 public class CurrentCarActivity extends AppCompatActivity implements View.OnClickListener {
@@ -94,12 +101,45 @@ public class CurrentCarActivity extends AppCompatActivity implements View.OnClic
             case R.id.btnChange:
                 Intent intent = new Intent(this, AddCarActivity.class);
                 intent.putExtra("Id", car.getId());
+                intent.putExtra("Brand", car.getBrand());
                 startActivity(intent);
                 break;
             case R.id.btnDelete:
-
+                deleteData();
                 break;
 
         }
+    }
+
+    private void deleteData() {
+
+        //PBWait.setVisibility(View.VISIBLE);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://ngknn.ru:5001/NGKNN/СергеевДЕ/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+
+        Call<Cars> call = retrofitAPI.deleteCar(car.getId());
+
+        call.enqueue(new Callback<Cars>() {
+
+            @Override
+            public void onResponse(Call<Cars> call, Response<Cars> response) {
+                Toast.makeText(CurrentCarActivity.this, "Автомобиль успешно удалён",
+                        Toast.LENGTH_SHORT).show();
+
+                //PBWait.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<Cars> call, Throwable t) {
+                Toast.makeText(CurrentCarActivity.this, "Ошибка: " + t.getMessage(),
+                        Toast.LENGTH_LONG).show();
+                //PBWait.setVisibility(View.GONE);
+            }
+        });
     }
 }

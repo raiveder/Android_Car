@@ -8,7 +8,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -22,10 +21,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.InputStream;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -54,9 +53,9 @@ public class AddCarActivity extends AppCompatActivity
     Button btnAdd;
 
     int Id;
-    String ImageString;
+    String ImageString = "null";
     ParametrsCar Parametrs;
-    String[][] Colors;
+    String BrandValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +67,10 @@ public class AddCarActivity extends AppCompatActivity
         Bundle arg = getIntent().getExtras();
         if (arg != null) {
             Id = arg.getInt("Id");
+            BrandValue = arg.getString("Brand");
+            btnAdd.setText("Изменить");
+            TextView tv = findViewById(R.id.tvAdd);
+            tv.setText("Изменить данные автомобиля");
         }
 
         getParameters();
@@ -193,47 +196,80 @@ public class AddCarActivity extends AppCompatActivity
 
     private void setParameters() {
 
-        spBrand.setAdapter(new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, Parametrs.getBrandsValues()));
+        ArrayAdapter<String> adapterBrands = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1);
+        adapterBrands.add("Выберите марку");
+        adapterBrands.addAll(Parametrs.getBrandsValues());
+        spBrand.setAdapter(adapterBrands);
 
-        spModel.setAdapter(new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, Parametrs.getModelsValues()));
+        ArrayAdapter<String> adapterModels = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1);
+        adapterModels.add("Выберите модель");
+        adapterModels.addAll(Parametrs.getModelsValues());
+        spModel.setAdapter(adapterModels);
 
-        spGeneration.setAdapter(new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, Parametrs.getGenerationsValues()));
+        ArrayAdapter<String> adapterGenerations = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1);
+        adapterGenerations.add("Выберите поколение");
+        adapterGenerations.addAll(Parametrs.getGenerationsValues());
+        spGeneration.setAdapter(adapterGenerations);
 
-        spTransmission.setAdapter(new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, Parametrs.getTransmissionsValues()));
+        ArrayAdapter<String> adapterTransmissions = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1);
+        adapterTransmissions.add("Выберите тип трансмиссии");
+        adapterTransmissions.addAll(Parametrs.getTransmissionsValues());
+        spTransmission.setAdapter(adapterTransmissions);
 
-        spEngine.setAdapter(new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, Parametrs.getEnginesValues()));
+        ArrayAdapter<String> adapterEngines = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1);
+        adapterEngines.add("Выберите двигатель");
+        adapterEngines.addAll(Parametrs.getEnginesValues());
+        spEngine.setAdapter(adapterEngines);
 
-        spFuel.setAdapter(new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, Parametrs.getFuel_TypesValues()));
+        ArrayAdapter<String> adapterFuel_Types = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1);
+        adapterFuel_Types.add("Выберите вид топлива");
+        adapterFuel_Types.addAll(Parametrs.getFuel_TypesValues());
+        spFuel.setAdapter(adapterFuel_Types);
 
-        spDrive.setAdapter(new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, Parametrs.getDrivesValues()));
+        ArrayAdapter<String> adapterDrives = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1);
+        adapterDrives.add("Выберите вид привода");
+        adapterDrives.addAll(Parametrs.getDrivesValues());
+        spDrive.setAdapter(adapterDrives);
 
-        spBody.setAdapter(new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, Parametrs.getBodysValues()));
+        ArrayAdapter<String> adapterBodys = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1);
+        adapterBodys.add("Выберите тип кузова");
+        adapterBodys.addAll(Parametrs.getBodysValues());
+        spBody.setAdapter(adapterBodys);
 
-        spColor.setAdapter(new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, Parametrs.getColorsValues()));
+        ArrayAdapter<String> adapterColors = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1);
+        adapterColors.add("Выберите цвет");
+        adapterColors.addAll(Parametrs.getColorsValues());
+        spColor.setAdapter(adapterColors);
 
-        spWheel.setAdapter(new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, Parametrs.getWheelsValues()));
+        ArrayAdapter<String> adapterWheels = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1);
+        adapterWheels.add("Выберите положение руля");
+        adapterWheels.addAll(Parametrs.getWheelsValues());
+        spWheel.setAdapter(adapterWheels);
 
         if (Id != 0) {
-            Colors = new String[Parametrs.getColorsValues().length][2];
-            for (int i = 0; i < Colors.length; i++) {
-                Colors[i][0] = String.valueOf(i + 1);
-                Colors[i][1] = Parametrs.getColorsValues()[i];
+
+            int idBrand = 0;
+            for (int i = 0; i < Parametrs.getBrandsValues().length; i++) {
+                if (Parametrs.getBrandsValues()[i].equals(BrandValue)) {
+                    idBrand = i + 1;
+                    break;
+                }
             }
-            getParametersValue();
+            getParametersValue(idBrand);
         }
     }
 
-    private void getParametersValue() {
+    private void getParametersValue(int idBrand) {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://ngknn.ru:5001/NGKNN/СергеевДЕ/api/")
@@ -248,7 +284,7 @@ public class AddCarActivity extends AppCompatActivity
             public void onResponse(Call<Cars> call, Response<Cars> response) {
 
                 Cars car = response.body();
-                setParametersValue(car);
+                setParametersValue(car, idBrand);
             }
 
             @Override
@@ -260,30 +296,22 @@ public class AddCarActivity extends AppCompatActivity
         });
     }
 
-    private void setParametersValue(Cars car) {
+    private void setParametersValue(Cars car, int idBrand) {
 
-        int idColor = 0;
-        for (int i = 0; i < Colors.length; i++) {
-            if (Integer.parseInt(Colors[i][0]) == car.getIdColor()) {
-                idColor = i;
-                break;
-            }
-        }
-
-        //spBrand;
-        spModel.setSelection(car.getIdModel() - 1);
-        spGeneration.setSelection(car.getIdGeneration() - 1);
+        spBrand.setSelection(idBrand);
+        spModel.setSelection(car.getIdModel());
+        spGeneration.setSelection(car.getIdGeneration());
         etEquipment.setText(car.getEquipment());
-        spTransmission.setSelection(car.getIdTransmission() - 1);
-        spEngine.setSelection(car.getIdEngine() - 1);
-        spFuel.setSelection(car.getIdFuel() - 1);
-        spDrive.setSelection(car.getIdDrive() - 1);
-        spBody.setSelection(car.getIdBody() - 1);
-        spColor.setSelection(idColor);
-        spWheel.setSelection(car.getIdWheel() - 1);
+        spTransmission.setSelection(car.getIdTransmission());
+        spEngine.setSelection(car.getIdEngine());
+        spFuel.setSelection(car.getIdFuel());
+        spDrive.setSelection(car.getIdDrive());
+        spBody.setSelection(car.getIdBody());
+        spColor.setSelection(car.getIdColor());
+        spWheel.setSelection(car.getIdWheel());
         etVIN.setText(car.getVIN());
         etMileage.setText(String.valueOf(car.getMileage()));
-        //imageView;
+        imageView.setImageBitmap(Images.getBitmap(this, car.getImage()));
     }
 
     private final ActivityResultLauncher<Intent> pickImg = registerForActivityResult(
@@ -303,6 +331,29 @@ public class AddCarActivity extends AppCompatActivity
                 }
             });
 
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+            case R.id.image:
+                Intent intent = new Intent(Intent.ACTION_PICK,
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                pickImg.launch(intent);
+                break;
+
+            case R.id.btnAdd:
+                if (checkData()) {
+                    if (Id == 0) {
+                        postData();
+                    } else {
+                        putData();
+                    }
+                }
+                break;
+        }
+    }
+
     private void postData() {
 
         ProgressBar PBWait = findViewById(R.id.pbWait);
@@ -317,16 +368,16 @@ public class AddCarActivity extends AppCompatActivity
 
         Cars car = new Cars(
                 0,
-                spModel.getSelectedItemPosition() + 1,
-                spGeneration.getSelectedItemPosition() + 1,
+                spModel.getSelectedItemPosition(),
+                spGeneration.getSelectedItemPosition(),
                 etEquipment.getText().toString(),
-                spTransmission.getSelectedItemPosition() + 1,
-                spEngine.getSelectedItemPosition() + 1,
-                spFuel.getSelectedItemPosition() + 1,
-                spDrive.getSelectedItemPosition() + 1,
-                spBody.getSelectedItemPosition() + 1,
-                spColor.getSelectedItemPosition() + 1, // Подумать
-                spWheel.getSelectedItemPosition() + 1,
+                spTransmission.getSelectedItemPosition(),
+                spEngine.getSelectedItemPosition(),
+                spFuel.getSelectedItemPosition(),
+                spDrive.getSelectedItemPosition(),
+                spBody.getSelectedItemPosition(),
+                spColor.getSelectedItemPosition(),
+                spWheel.getSelectedItemPosition(),
                 etVIN.getText().toString(),
                 Integer.parseInt(etMileage.getText().toString()),
                 ImageString);
@@ -338,6 +389,55 @@ public class AddCarActivity extends AppCompatActivity
             public void onResponse(Call<Cars> call, Response<Cars> response) {
 
                 Toast.makeText(AddCarActivity.this, "Автомобиль успешно добавлен",
+                        Toast.LENGTH_LONG).show();
+                PBWait.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<Cars> call, Throwable t) {
+
+                Toast.makeText(AddCarActivity.this, "Ошибка: " + t.getMessage(),
+                        Toast.LENGTH_LONG).show();
+                PBWait.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void putData() {
+
+        ProgressBar PBWait = findViewById(R.id.pbWait);
+        PBWait.setVisibility(View.VISIBLE);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://ngknn.ru:5001/NGKNN/СергеевДЕ/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+
+        Cars car = new Cars(
+                Id,
+                spModel.getSelectedItemPosition(),
+                spGeneration.getSelectedItemPosition(),
+                etEquipment.getText().toString(),
+                spTransmission.getSelectedItemPosition(),
+                spEngine.getSelectedItemPosition(),
+                spFuel.getSelectedItemPosition(),
+                spDrive.getSelectedItemPosition(),
+                spBody.getSelectedItemPosition(),
+                spColor.getSelectedItemPosition(),
+                spWheel.getSelectedItemPosition(),
+                etVIN.getText().toString(),
+                Integer.parseInt(etMileage.getText().toString()),
+                ImageString);
+
+        Call<Cars> call = retrofitAPI.updateCar(Id, car);
+        call.enqueue(new Callback<Cars>() {
+
+            @Override
+            public void onResponse(Call<Cars> call, Response<Cars> response) {
+
+                Toast.makeText(AddCarActivity.this, "Автомобиль успешно изменён",
                         Toast.LENGTH_LONG).show();
                 PBWait.setVisibility(View.GONE);
             }
@@ -418,50 +518,39 @@ public class AddCarActivity extends AppCompatActivity
     }
 
     @Override
-    public void onClick(View view) {
-
-        switch (view.getId()) {
-            case R.id.image:
-                Intent intent = new Intent(Intent.ACTION_PICK,
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                pickImg.launch(intent);
-                break;
-
-            case R.id.btnAdd:
-
-                if (checkData()) {
-                    //postData();
-                }
-
-                break;
-        }
-    }
-
-    @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
         switch (adapterView.getId()) {
             case R.id.spBrand:
                 spBrand.setBackground(this.getDrawable(R.drawable.spinner_background));
+                break;
             case R.id.spModel:
                 spModel.setBackground(this.getDrawable(R.drawable.spinner_background));
+                break;
             case R.id.spGeneration:
                 spGeneration.setBackground(this.getDrawable(R.drawable.spinner_background));
+                break;
             case R.id.spTransmission:
                 spTransmission.setBackground(this.getDrawable(R.drawable.spinner_background));
+                break;
             case R.id.spEngine:
                 spEngine.setBackground(this.getDrawable(R.drawable.spinner_background));
+                break;
             case R.id.spFuel:
                 spFuel.setBackground(this.getDrawable(R.drawable.spinner_background));
+                break;
             case R.id.spDrive:
                 spDrive.setBackground(this.getDrawable(R.drawable.spinner_background));
+                break;
             case R.id.spBody:
                 spBody.setBackground(this.getDrawable(R.drawable.spinner_background));
+                break;
             case R.id.spColor:
                 spColor.setBackground(this.getDrawable(R.drawable.spinner_background));
+                break;
             case R.id.spWheel:
                 spWheel.setBackground(this.getDrawable(R.drawable.spinner_background));
+                break;
         }
     }
 

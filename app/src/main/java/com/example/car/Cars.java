@@ -22,7 +22,10 @@ public class Cars implements Serializable {
     public Cars(int id, Integer idModel, Integer idGeneration, String equipment, Integer idTransmission,
                 Integer idEngine, Integer idFuel, Integer idDrive, Integer idBody, Integer idColor,
                 Integer idWheel, String VIN, Integer mileage, String image) {
-        Id = id;
+
+        if (id != 0) {
+            Id = id;
+        }
         Id_model = idModel;
         Id_generation = idGeneration;
         Equipment = equipment;
