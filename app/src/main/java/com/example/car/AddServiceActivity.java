@@ -17,6 +17,7 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
     ListView lvExpendables;
     String[] details;
     int Id_car;
+    int[] countDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
         Bundle arg = getIntent().getExtras();
         Id_car = arg.getInt("Id");
         details = arg.getStringArray("Details");
+        countDetails = arg.getIntArray("CountDetails");
 
         lvDetails = findViewById(R.id.lvDetails);
         lvExpendables = findViewById(R.id.lvExpendables);
@@ -50,7 +52,7 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
         if (details.length != 0) {
             for (int i = 0; i < details.length; i++) {
                 if (details[i] != null) {
-                    adapter.add(details[i]);
+                    adapter.add(details[i] + " x" + countDetails[i]);
                 }
             }
         }
@@ -67,6 +69,7 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
                 Intent intent = new Intent(this, AddDetailsActivity.class);
                 intent.putExtra("Id_car", Id_car);
                 intent.putExtra("Details", details);
+                intent.putExtra("CountDetails", countDetails);
                 startActivity(intent);
                 break;
             case R.id.btnAddExpendables:

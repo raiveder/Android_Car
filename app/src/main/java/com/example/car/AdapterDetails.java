@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-@SuppressLint("ViewHolder")
+@SuppressLint({"ViewHolder", "UseCompatLoadingForDrawables"})
 public class AdapterDetails extends BaseAdapter {
 
     private Context ThisContext;
@@ -40,9 +40,7 @@ public class AdapterDetails extends BaseAdapter {
         View v = View.inflate(ThisContext, R.layout.item_details, null);
 
         TextView tvDetail = v.findViewById(R.id.tvDetail);
-
-        Details detail = DetailsList.get(position);
-        tvDetail.setText(detail.getDetail());
+        tvDetail.setText(DetailsList.get(position).getDetail());
 
         return v;
     }

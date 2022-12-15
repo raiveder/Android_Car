@@ -38,6 +38,7 @@ public class ServiceShowActivity extends AppCompatActivity implements View.OnCli
                 Intent intent = new Intent(this, AddServiceActivity.class);
                 intent.putExtra("Id", Id_car);
                 intent.putExtra("Details", new String[]{});
+                intent.putExtra("CountDetails", new int[]{});
                 startActivity(intent);
                 break;
         }
