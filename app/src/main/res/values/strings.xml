@@ -26,4 +26,5 @@
     <string name="add_details">Добавить детали</string>
     <string name="expendables">Расходники</string>
     <string name="add_expendables">Добавить расходники</string>
+    <string name="input_count">Введите количество</string>
 </resources>

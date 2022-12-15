@@ -1,15 +1,20 @@
 package com.example.car;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextClock;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -28,7 +33,6 @@ public class AddDetailsActivity extends AppCompatActivity implements View.OnClic
     AdapterDetails adapter;
     int Id_car;
     String[] details;
-    boolean[] IsAdded;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,12 +91,10 @@ public class AddDetailsActivity extends AppCompatActivity implements View.OnClic
 
         Bundle arg = getIntent().getExtras();
         details = arg.getStringArray("Details");
-        IsAdded = arg.getBooleanArray("Added");
         Id_car = arg.getInt("Id_car");
 
         if (details.length == 0) {
             details = new String[listDetails.size()];
-            IsAdded = new boolean[listDetails.size()];
         }
     }
 
@@ -100,14 +102,25 @@ public class AddDetailsActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-        if (IsAdded[i]) {
-            IsAdded[i] = false;
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        alertDialogBuilder.setView(View.inflate(this, R.layout.choice_count, null));
+
+        alertDialogBuilder.setCancelable(false).setPositiveButton("OK", (dialog, id) -> {
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        alertDialog.show(); //Получить количество etCount
+
+        if (details[i] == null) {
+            details[i] = listDetails.get(i).getDetail();
+            TextView tv = adapterView.getChildAt(i).findViewById(R.id.tvCount);
+            String g = tv.getText().toString();
+            adapterView.getChildAt(i).setBackground(this.getDrawable(R.drawable.selected_item));
+        } else {
             details[i] = null;
             adapterView.getChildAt(i).setBackground(this.getDrawable(R.drawable.default_item));
-        } else {
-            IsAdded[i] = true;
-            details[i] = listDetails.get(i).getDetail();
-            adapterView.getChildAt(i).setBackground(this.getDrawable(R.drawable.selected_item));
         }
     }
 
