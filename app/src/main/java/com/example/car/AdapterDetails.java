@@ -14,10 +14,12 @@ public class AdapterDetails extends BaseAdapter {
 
     private Context ThisContext;
     private List<Details> DetailsList;
+    private int[] CountDetails;
 
-    public AdapterDetails(Context context, List<Details> detailsList) {
+    public AdapterDetails(Context context, List<Details> detailsList, int[] countDetails) {
         ThisContext = context;
         DetailsList = detailsList;
+        CountDetails = countDetails;
     }
 
     @Override
@@ -37,10 +39,20 @@ public class AdapterDetails extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         View v = View.inflate(ThisContext, R.layout.item_details, null);
 
         TextView tvDetail = v.findViewById(R.id.tvDetail);
         tvDetail.setText(DetailsList.get(position).getDetail());
+
+        if (CountDetails != null) {
+            if (CountDetails[position] != 0) {
+
+                TextView tv = v.findViewById(R.id.tvCount);
+                tv.setText(String.valueOf(CountDetails[position]));
+                v.setBackground(ThisContext.getDrawable(R.drawable.selected_item));
+            }
+        }
 
         return v;
     }

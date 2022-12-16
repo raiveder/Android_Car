@@ -37,8 +37,11 @@ public class ServiceShowActivity extends AppCompatActivity implements View.OnCli
             case R.id.btnAdd:
                 Intent intent = new Intent(this, AddServiceActivity.class);
                 intent.putExtra("Id", Id_car);
+                intent.putExtra("Id_car", Id_car);
                 intent.putExtra("Details", new String[]{});
                 intent.putExtra("CountDetails", new int[]{});
+                intent.putExtra("Expendables",  new String[]{});
+                intent.putExtra("CountExpendables", new int[]{});
                 startActivity(intent);
                 break;
         }

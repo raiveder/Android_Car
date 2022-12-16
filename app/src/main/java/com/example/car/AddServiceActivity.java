@@ -13,11 +13,13 @@ import android.widget.ListView;
 @SuppressLint("NonConstantResourceId")
 public class AddServiceActivity extends AppCompatActivity implements View.OnClickListener {
 
-    ListView lvDetails;
-    ListView lvExpendables;
-    String[] details;
-    int Id_car;
-    int[] countDetails;
+    private ListView lvDetails;
+    private ListView lvExpendables;
+    private int Id_car;
+    private String[] details;
+    private int[] countDetails;
+    private String[] expendables;
+    private int[] countExpendables;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,9 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
         Bundle arg = getIntent().getExtras();
         Id_car = arg.getInt("Id");
         details = arg.getStringArray("Details");
+        expendables = arg.getStringArray("Expendables");
         countDetails = arg.getIntArray("CountDetails");
+        countExpendables = arg.getIntArray("CountExpendables");
 
         lvDetails = findViewById(R.id.lvDetails);
         lvExpendables = findViewById(R.id.lvExpendables);
@@ -70,10 +74,18 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
                 intent.putExtra("Id_car", Id_car);
                 intent.putExtra("Details", details);
                 intent.putExtra("CountDetails", countDetails);
+                intent.putExtra("Expendables", expendables);
+                intent.putExtra("CountExpendables", countExpendables);
                 startActivity(intent);
                 break;
             case R.id.btnAddExpendables:
-
+                intent = new Intent(this, AddExpendablesActivity.class);
+                intent.putExtra("Id_car", Id_car);
+                intent.putExtra("Details", details);
+                intent.putExtra("CountDetails", countDetails);
+                intent.putExtra("Expendables", expendables);
+                intent.putExtra("CountExpendables", countExpendables);
+                startActivity(intent);
                 break;
         }
     }

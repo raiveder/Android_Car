@@ -3,7 +3,6 @@ package com.example.car;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -24,8 +23,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-@SuppressLint({"NonConstantResourceId", "UseCompatLoadingForDrawables"})
-public class AddDetailsActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class AddExpendablesActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private ListView lvDetails;
     private List<Details> listDetails;
@@ -82,7 +80,7 @@ public class AddDetailsActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onFailure(Call<List<Details>> call, Throwable t) {
 
-                Toast.makeText(AddDetailsActivity.this, "Ошибка: " + t.getMessage(),
+                Toast.makeText(AddExpendablesActivity.this, "Ошибка: " + t.getMessage(),
                         Toast.LENGTH_LONG).show();
                 pbWait.setVisibility(View.GONE);
             }
@@ -103,7 +101,7 @@ public class AddDetailsActivity extends AppCompatActivity implements View.OnClic
             countDetails = new int[listDetails.size()];
         }
 
-        adapter = new AdapterDetails(AddDetailsActivity.this, listDetails, countDetails);
+        adapter = new AdapterDetails(AddExpendablesActivity.this, listDetails, countDetails);
         lvDetails.setAdapter(adapter);
     }
 
@@ -141,7 +139,7 @@ public class AddDetailsActivity extends AppCompatActivity implements View.OnClic
             }
             TextView tv = view.findViewById(R.id.tvCount);
             tv.setText(String.valueOf(countDetails[i]));
-            view.setBackground(AddDetailsActivity.this.getDrawable(R.drawable.selected_item));
+            view.setBackground(AddExpendablesActivity.this.getDrawable(R.drawable.selected_item));
         });
 
         alertDialogBuilder.setNegativeButton("Отмена", (dialog, id) -> {
