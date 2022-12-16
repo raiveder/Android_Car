@@ -47,7 +47,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvHeader">
 
         <ListView
-            android:id="@+id/lvDetails"
+            android:id="@+id/lvExpendables"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="2dp"

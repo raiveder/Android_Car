@@ -23,9 +23,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @SuppressLint("NonConstantResourceId")
 public class ShowCarsActivity extends AppCompatActivity implements View.OnClickListener {
 
-    List<CarsValue> listCar;
-    ListView listView;
-    AdapterCars adapter;
+    private List<CarsValue> listCar;
+    private ListView listView;
+    private AdapterCars adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

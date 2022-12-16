@@ -23,25 +23,25 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @SuppressLint({"NonConstantResourceId", "SetTextI18n"})
 public class CurrentCarActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextView tvNameCar;
-    TextView tvBrand;
-    TextView tvModel;
-    TextView tvEquipment;
-    TextView tvTransmission;
-    TextView tvEngine;
-    TextView tvFuel;
-    TextView tvDrive;
-    TextView tvBody;
-    TextView tvColor;
-    TextView tvWheel;
-    TextView tvVIN;
-    TextView tvMileage;
-    Button btnService;
-    Button btnChange;
-    Button btnDelete;
-    ProgressBar pbWait;
+    private TextView tvNameCar;
+    private TextView tvBrand;
+    private TextView tvModel;
+    private TextView tvEquipment;
+    private TextView tvTransmission;
+    private TextView tvEngine;
+    private TextView tvFuel;
+    private TextView tvDrive;
+    private TextView tvBody;
+    private TextView tvColor;
+    private TextView tvWheel;
+    private TextView tvVIN;
+    private TextView tvMileage;
+    private Button btnService;
+    private Button btnChange;
+    private Button btnDelete;
+    private ProgressBar pbWait;
 
-    CarsValue car;
+    private CarsValue car;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

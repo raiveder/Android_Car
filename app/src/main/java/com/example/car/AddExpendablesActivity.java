@@ -3,6 +3,7 @@ package com.example.car;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -23,11 +24,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+@SuppressLint({"UseCompatLoadingForDrawables", "NonConstantResourceId"})
 public class AddExpendablesActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
-    private ListView lvDetails;
-    private List<Details> listDetails;
-    private AdapterDetails adapter;
+    private ListView lvExpendables;
+    private List<Expendables> listExpendables;
+    private AdapterExpendables adapter;
     private int Id_car;
     private String[] details;
     private int[] countDetails;
@@ -37,7 +39,7 @@ public class AddExpendablesActivity extends AppCompatActivity implements View.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_details);
+        setContentView(R.layout.activity_add_expendables);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         initializeComponent();
@@ -47,8 +49,8 @@ public class AddExpendablesActivity extends AppCompatActivity implements View.On
 
     private void initializeComponent() {
 
-        lvDetails = findViewById(R.id.lvDetails);
-        lvDetails.setOnItemClickListener(this);
+        lvExpendables = findViewById(R.id.lvExpendables);
+        lvExpendables.setOnItemClickListener(this);
 
         Button btnAdd = findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(this);
@@ -65,20 +67,20 @@ public class AddExpendablesActivity extends AppCompatActivity implements View.On
 
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
 
-        Call<List<Details>> call = retrofitAPI.getDetails();
+        Call<List<Expendables>> call = retrofitAPI.getExpendables();
 
-        call.enqueue(new Callback<List<Details>>() {
+        call.enqueue(new Callback<List<Expendables>>() {
 
             @Override
-            public void onResponse(Call<List<Details>> call, Response<List<Details>> response) {
+            public void onResponse(Call<List<Expendables>> call, Response<List<Expendables>> response) {
 
-                listDetails = response.body();
+                listExpendables = response.body();
                 pbWait.setVisibility(View.GONE);
                 getExtrasIntent();
             }
 
             @Override
-            public void onFailure(Call<List<Details>> call, Throwable t) {
+            public void onFailure(Call<List<Expendables>> call, Throwable t) {
 
                 Toast.makeText(AddExpendablesActivity.this, "Ошибка: " + t.getMessage(),
                         Toast.LENGTH_LONG).show();
@@ -96,25 +98,26 @@ public class AddExpendablesActivity extends AppCompatActivity implements View.On
         expendables = arg.getStringArray("Expendables");
         countExpendables = arg.getIntArray("CountExpendables");
 
-        if (details.length == 0) {
-            details = new String[listDetails.size()];
-            countDetails = new int[listDetails.size()];
+        if (expendables.length == 0) {
+            expendables = new String[listExpendables.size()];
+            countExpendables = new int[listExpendables.size()];
         }
 
-        adapter = new AdapterDetails(AddExpendablesActivity.this, listDetails, countDetails);
-        lvDetails.setAdapter(adapter);
+        adapter = new AdapterExpendables(AddExpendablesActivity.this,
+                listExpendables, countExpendables);
+        lvExpendables.setAdapter(adapter);
     }
 
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-        if (details[i] == null) {
+        if (expendables[i] == null) {
 
             getAlertDialog(view, i).show();
         } else {
-            details[i] = null;
-            countDetails[i] = 0;
+            expendables[i] = null;
+            countExpendables[i] = 0;
             TextView tv = view.findViewById(R.id.tvCount);
             tv.setText(null);
             view.setBackground(this.getDrawable(R.drawable.default_item));
@@ -130,15 +133,15 @@ public class AddExpendablesActivity extends AppCompatActivity implements View.On
 
         alertDialogBuilder.setPositiveButton("Добавить", (dialog, id) -> {
 
-            details[i] = listDetails.get(i).getDetail();
+            expendables[i] = listExpendables.get(i).getExpendable();
             EditText et = v.findViewById(R.id.etCount);
             if (et.getText().length() == 0) {
-                countDetails[i] = 1;
+                countExpendables[i] = 1;
             } else {
-                countDetails[i] = Integer.parseInt(et.getText().toString());
+                countExpendables[i] = Integer.parseInt(et.getText().toString());
             }
             TextView tv = view.findViewById(R.id.tvCount);
-            tv.setText(String.valueOf(countDetails[i]));
+            tv.setText(String.valueOf(countExpendables[i]));
             view.setBackground(AddExpendablesActivity.this.getDrawable(R.drawable.selected_item));
         });
 

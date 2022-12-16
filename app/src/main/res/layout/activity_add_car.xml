@@ -294,7 +294,6 @@
                 android:layout_marginVertical="30dp"
                 android:text="@string/add" />
         </RelativeLayout>
-
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

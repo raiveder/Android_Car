@@ -27,7 +27,7 @@ public class Details {
 
 
     public int getId() {
-        return Id_part;
+        return Id_detail;
     }
 
     public String getDetail() {

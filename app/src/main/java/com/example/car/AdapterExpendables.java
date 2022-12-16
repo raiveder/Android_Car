@@ -10,32 +10,32 @@ import android.widget.TextView;
 import java.util.List;
 
 @SuppressLint({"ViewHolder", "UseCompatLoadingForDrawables"})
-public class AdapterDetails extends BaseAdapter {
+public class AdapterExpendables extends BaseAdapter {
 
     private Context ThisContext;
-    private List<Details> DetailsList;
-    private int[] CountDetails;
+    private List<Expendables> ExpendablesList;
+    private int[] CountExpendables;
 
-    public AdapterDetails(Context context, List<Details> detailsList, int[] countDetails) {
+    public AdapterExpendables(Context context, List<Expendables> expendablesList, int[] countExpendables) {
 
         ThisContext = context;
-        DetailsList = detailsList;
-        CountDetails = countDetails;
+        ExpendablesList = expendablesList;
+        CountExpendables = countExpendables;
     }
 
     @Override
     public int getCount() {
-        return DetailsList.size();
+        return ExpendablesList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return DetailsList.get(position);
+        return ExpendablesList.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return DetailsList.get(position).getId();
+        return ExpendablesList.get(position).getId();
     }
 
     @Override
@@ -44,13 +44,13 @@ public class AdapterDetails extends BaseAdapter {
         View v = View.inflate(ThisContext, R.layout.item_details, null);
 
         TextView tvDetail = v.findViewById(R.id.tvDetail);
-        tvDetail.setText(DetailsList.get(position).getDetail());
+        tvDetail.setText(ExpendablesList.get(position).getExpendable());
 
-        if (CountDetails != null) {
-            if (CountDetails[position] != 0) {
+        if (CountExpendables != null) {
+            if (CountExpendables[position] != 0) {
 
                 TextView tv = v.findViewById(R.id.tvCount);
-                tv.setText(String.valueOf(CountDetails[position]));
+                tv.setText(String.valueOf(CountExpendables[position]));
                 v.setBackground(ThisContext.getDrawable(R.drawable.selected_item));
             }
         }

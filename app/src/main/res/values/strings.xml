@@ -27,4 +27,9 @@
     <string name="expendables">Расходники</string>
     <string name="add_expendables">Добавить расходники</string>
     <string name="input_count">Введите количество</string>
+    <string name="date">Дата</string>
+    <string name="cost">Стоимость</string>
+    <string name="work_name">Работа (краткое наименование поездки до 20 символов)</string>
+    <string name="work">Работа</string>
+    <string name="add_new_tm">Добавить новое ТО</string>
 </resources>

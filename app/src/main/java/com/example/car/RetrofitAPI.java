@@ -6,10 +6,8 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RetrofitAPI {
@@ -32,6 +30,17 @@ public interface RetrofitAPI {
     @DELETE("Cars/")
     Call<Cars> deleteCar(@Query("id") int id);
 
+    @GET("Services_List/")
+    Call<List<Services_ListValue>> getServices();
+
+    @POST("Services_List/")
+    Call<Services_List> createService(@Body Services_List services_List,
+                                      @Query("details") int[] details,
+                                      @Query("expendables") int[] expendables);
+
     @GET("Details/")
     Call<List<Details>> getDetails();
+
+    @GET("Expendables/")
+    Call<List<Expendables>> getExpendables();
 }

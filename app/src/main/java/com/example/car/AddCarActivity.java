@@ -38,28 +38,28 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AddCarActivity extends AppCompatActivity
         implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
-    ScrollView scrollView;
-    ProgressBar pbWait;
-    Spinner spBrand;
-    Spinner spModel;
-    Spinner spGeneration;
-    EditText etEquipment;
-    Spinner spTransmission;
-    Spinner spEngine;
-    Spinner spFuel;
-    Spinner spDrive;
-    Spinner spBody;
-    Spinner spColor;
-    Spinner spWheel;
-    EditText etVIN;
-    EditText etMileage;
-    ImageView imageView;
-    Button btnAdd;
+    private ScrollView scrollView;
+    private ProgressBar pbWait;
+    private Spinner spBrand;
+    private Spinner spModel;
+    private Spinner spGeneration;
+    private EditText etEquipment;
+    private Spinner spTransmission;
+    private Spinner spEngine;
+    private Spinner spFuel;
+    private Spinner spDrive;
+    private Spinner spBody;
+    private Spinner spColor;
+    private Spinner spWheel;
+    private EditText etVIN;
+    private EditText etMileage;
+    private ImageView imageView;
+    private Button btnAdd;
 
-    int Id;
-    String ImageString = "null";
-    ParametrsCar Parametrs;
-    String BrandValue;
+    private int Id;
+    private String ImageString = "null";
+    private ParametrsCar Parametrs;
+    private String BrandValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,10 +100,10 @@ public class AddCarActivity extends AppCompatActivity
         imageView = findViewById(R.id.image);
         btnAdd = findViewById(R.id.btnAdd);
 
-        setHandlers();
+        setListeners();
     }
 
-    private void setHandlers() {
+    private void setListeners() {
 
         spBrand.setOnItemSelectedListener(this);
         spModel.setOnItemSelectedListener(this);
