@@ -16,13 +16,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import net.sourceforge.jtds.jdbc.DateTime;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.Locale;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -218,7 +211,7 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
 
     private void postData() {
 
-        /*ProgressBar pbWait = findViewById(R.id.pbWait);
+        ProgressBar pbWait = findViewById(R.id.pbWait);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://ngknn.ru:5001/NGKNN/СергеевДЕ/api/")
@@ -227,23 +220,13 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
 
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
 
-        DateTimeFormatter formatter = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.ENGLISH);
-        }
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            LocalDate date = LocalDate.parse(etDate.getText().toString(), formatter);
-        }
-
-        //LocalDate date = LocalDate.parse("2018-05-05")
-
         Services_List service = new Services_List(
                 0,
                 Id_car,
                 etWork.getText().toString(),
-                etCost.getText().toString(),
-                etDate.getText().toString(), //Дату
-                Integer.parseInt(etMileage.getText().toString()), );
+                Double.parseDouble(etCost.getText().toString()),
+                etDate.getText().toString(),
+                Integer.parseInt(etMileage.getText().toString()));
 
         Call<Services_List> call = retrofitAPI.createService(service);
         call.enqueue(new Callback<Services_List>() {
@@ -255,7 +238,8 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
                         Toast.LENGTH_LONG).show();
                 pbWait.setVisibility(View.GONE);
                 new Handler().postDelayed(() -> startActivity(new Intent(
-                        AddServiceActivity.this, ServiceShowActivity.class)), 500);
+                        AddServiceActivity.this, ServiceShowActivity.class)),
+                        500);
             }
 
             @Override
@@ -265,6 +249,6 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
                         Toast.LENGTH_LONG).show();
                 pbWait.setVisibility(View.GONE);
             }
-        });*/
+        });
     }
 }

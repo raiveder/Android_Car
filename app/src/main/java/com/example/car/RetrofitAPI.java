@@ -34,9 +34,7 @@ public interface RetrofitAPI {
     Call<List<Services_ListValue>> getServices();
 
     @POST("Services_List/")
-    Call<Services_List> createService(@Body Services_List services_List,
-                                      @Query("details") int[] details,
-                                      @Query("expendables") int[] expendables);
+    Call<Services_List> createService(@Body Services_List services_ListModel);
 
     @GET("Details/")
     Call<List<Details>> getDetails();
