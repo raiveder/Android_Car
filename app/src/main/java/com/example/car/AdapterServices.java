@@ -39,16 +39,16 @@ public class AdapterServices extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = View.inflate(ThisContext, R.layout.item_services, null);
 
-        TextView Auto = v.findViewById(R.id.Auto);
-        TextView Work = v.findViewById(R.id.Work);
         TextView Date = v.findViewById(R.id.Date);
         TextView Cost = v.findViewById(R.id.Cost);
+        TextView Mileage = v.findViewById(R.id.Mileage);
+        TextView Work = v.findViewById(R.id.Work);
 
         Services_ListValue service = ServiceList.get(position);
-        Auto.setText(service.getCar());
-        Work.setText(service.getWork());
         Date.setText(service.getDate_visit());
         Cost.setText(service.getCost());
+        Mileage.setText(service.getMileage());
+        Work.setText(service.getWork());
 
         return v;
     }

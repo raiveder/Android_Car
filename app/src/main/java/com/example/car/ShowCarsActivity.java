@@ -26,11 +26,14 @@ public class ShowCarsActivity extends AppCompatActivity implements View.OnClickL
     private List<CarsValue> listCar;
     private ListView listView;
     private AdapterCars adapter;
+    private int Id_user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_cars);
+
+        Id_user = getIntent().getExtras().getInt("Id_user");
 
         Button btnAdd = findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(this);

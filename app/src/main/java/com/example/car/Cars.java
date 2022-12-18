@@ -18,10 +18,11 @@ public class Cars implements Serializable {
     private String VIN;
     private Integer Mileage;
     private String Image;
+    private int Id_user;
 
     public Cars(int id_car, Integer idModel, Integer idGeneration, String equipment, Integer idTransmission,
                 Integer idEngine, Integer idFuel, Integer idDrive, Integer idBody, Integer idColor,
-                Integer idWheel, String VIN, Integer mileage, String image) {
+                Integer idWheel, String VIN, Integer mileage, String image, int id_user) {
 
         if (id_car != 0) {
             Id_car = id_car;
@@ -39,6 +40,7 @@ public class Cars implements Serializable {
         this.VIN = VIN;
         Mileage = mileage;
         Image = image;
+        Id_user = id_user;
     }
 
     public void setIdModel(Integer idModel) {
@@ -91,6 +93,10 @@ public class Cars implements Serializable {
 
     public void setImage(String image) {
         Image = image;
+    }
+
+    public void setId_user(int id_user) {
+        Id_user = id_user;
     }
 
     public int getId() {
@@ -147,5 +153,9 @@ public class Cars implements Serializable {
 
     public String getImage() {
         return Image;
+    }
+
+    public int getId_user() {
+        return Id_user;
     }
 }

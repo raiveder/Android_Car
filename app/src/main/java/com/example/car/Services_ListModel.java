@@ -1,6 +1,6 @@
 package com.example.car;
 
-public class Services_List {
+public class Services_ListModel {
 
     private int Id_service;
     private Integer Id_car;
@@ -8,9 +8,12 @@ public class Services_List {
     private double Cost;
     private String Date_visit;
     private Integer Mileage;
+    private int[] Details;
+    private int[] Expendables;
 
-    public Services_List(int id_service, Integer id_car, String work,
-                         double cost, String date_visit, Integer mileage) {
+    public Services_ListModel(int id_service, Integer id_car, String work,
+                              double cost, String date_visit, Integer mileage,
+                              int[] details, int[] expendables) {
 
         if (id_service != 0) {
             Id_service = id_service;
@@ -20,6 +23,8 @@ public class Services_List {
         Cost = cost;
         Date_visit = date_visit;
         Mileage = mileage;
+        Details = details;
+        Expendables = expendables;
     }
 
     public void setId_car(Integer id_car) {
@@ -40,6 +45,14 @@ public class Services_List {
 
     public void setMileage(Integer mileage) {
         Mileage = mileage;
+    }
+
+    public void setDetails(int[] details) {
+        Details = details;
+    }
+
+    public void setExpendables(int[] expendables) {
+        Expendables = expendables;
     }
 
     public Integer getId() {
@@ -64,5 +77,13 @@ public class Services_List {
 
     public Integer getMileage() {
         return Mileage;
+    }
+
+    public int[] getDetails() {
+        return Details;
+    }
+
+    public int[] getExpendables() {
+        return Expendables;
     }
 }

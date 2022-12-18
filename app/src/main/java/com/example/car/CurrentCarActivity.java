@@ -81,26 +81,8 @@ public class CurrentCarActivity extends AppCompatActivity implements View.OnClic
         btnDelete.setOnClickListener(this);
     }
 
-    private void setData() {
-
-        tvNameCar.setText(car.getBrand() + " " + car.getModel() + " " + car.getGeneration());
-        tvBrand.setText(car.getBrand());
-        tvModel.setText(car.getModel());
-        tvEquipment.setText(car.getEquipment());
-        tvTransmission.setText(car.getTransmission());
-        tvEngine.setText(car.getEngine() + " кл. " + car.getHorsepower() + " л.с.");
-        tvFuel.setText(car.getFuel());
-        tvDrive.setText(car.getDrive());
-        tvBody.setText(car.getBody());
-        tvColor.setText(car.getColors());
-        tvWheel.setText(car.getWheel());
-        tvVIN.setText(car.getVIN());
-        tvMileage.setText(car.getMileage() + " км");
-    }
-
     private void getData(int id) {
 
-        pbWait.setVisibility(View.VISIBLE);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://ngknn.ru:5001/NGKNN/СергеевДЕ/api/")
@@ -124,7 +106,7 @@ public class CurrentCarActivity extends AppCompatActivity implements View.OnClic
                         break;
                     }
                 }
-                pbWait.setVisibility(View.GONE);
+
                 setData();
             }
 
@@ -136,6 +118,28 @@ public class CurrentCarActivity extends AppCompatActivity implements View.OnClic
                 pbWait.setVisibility(View.GONE);
             }
         });
+    }
+
+    private void setData() {
+
+        pbWait.setVisibility(View.GONE);
+        findViewById(R.id.rlUp).setVisibility(View.VISIBLE);
+        findViewById(R.id.rlInfo).setVisibility(View.VISIBLE);
+        findViewById(R.id.rlButtons).setVisibility(View.VISIBLE);
+
+        tvNameCar.setText(car.getBrand() + " " + car.getModel() + " " + car.getGeneration());
+        tvBrand.setText(car.getBrand());
+        tvModel.setText(car.getModel());
+        tvEquipment.setText(car.getEquipment());
+        tvTransmission.setText(car.getTransmission());
+        tvEngine.setText(car.getEngine() + " кл. " + car.getHorsepower() + " л.с.");
+        tvFuel.setText(car.getFuel());
+        tvDrive.setText(car.getDrive());
+        tvBody.setText(car.getBody());
+        tvColor.setText(car.getColors());
+        tvWheel.setText(car.getWheel());
+        tvVIN.setText(car.getVIN());
+        tvMileage.setText(car.getMileage() + " км");
     }
 
     @Override

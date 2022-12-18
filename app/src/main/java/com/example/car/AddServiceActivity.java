@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -29,6 +30,7 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
     private EditText etCost;
     private EditText etWork;
     private EditText etMileage;
+    private Button btnAdd;
     private Button btnAddDetails;
     private Button btnAddExpendables;
     private ListView lvDetails;
@@ -38,6 +40,7 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
     private int[] countDetails;
     private String[] expendables;
     private int[] countExpendables;
+    private boolean FlagShow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +48,16 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_add_service);
 
         initializeComponent();
-        uploadDetails();
-        uploadExpendables();
+
+        if (FlagShow) {
+
+            setReadOnlyView();
+            getData(getIntent().getExtras().getInt("IdService"));
+        } else {
+
+            uploadDetails();
+            uploadExpendables();
+        }
     }
 
     private void initializeComponent() {
@@ -64,15 +75,114 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
         etMileage = findViewById(R.id.etMileage);
         lvDetails = findViewById(R.id.lvDetails);
         lvExpendables = findViewById(R.id.lvExpendables);
+        btnAdd = findViewById(R.id.btnAdd);
         btnAddDetails = findViewById(R.id.btnAddDetails);
         btnAddExpendables = findViewById(R.id.btnAddExpendables);
+
+        if (arg.getBoolean("FlagShow")) {
+
+            FlagShow = true;
+        }
 
         setListeners();
     }
 
+    private void setReadOnlyView() {
+
+        btnAddExpendables.setVisibility(View.GONE);
+        btnAddDetails.setVisibility(View.GONE);
+        btnAdd.setVisibility(View.GONE);
+
+        etDate.setEnabled(false);
+        etCost.setEnabled(false);
+        etWork.setEnabled(false);
+        etMileage.setEnabled(false);
+
+        etDate.setTextColor(Color.BLACK);
+        etCost.setTextColor(Color.BLACK);
+        etWork.setTextColor(Color.BLACK);
+        etMileage.setTextColor(Color.BLACK);
+    }
+
+    private void getData(int id_service) {
+
+        ProgressBar pbWait = findViewById(R.id.pbWait);
+        pbWait.setVisibility(View.VISIBLE);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://ngknn.ru:5001/NGKNN/СергеевДЕ/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+
+        Call<CurrentService_List> call = retrofitAPI.getServiceById(id_service);
+        call.enqueue(new Callback<CurrentService_List>() {
+
+            @Override
+            public void onResponse(Call<CurrentService_List> call,
+                                   Response<CurrentService_List> response) {
+
+                pbWait.setVisibility(View.GONE);
+                setData(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<CurrentService_List> call, Throwable t) {
+
+                Toast.makeText(AddServiceActivity.this, "Ошибка: " + t.getMessage(),
+                        Toast.LENGTH_LONG).show();
+                pbWait.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void setData(CurrentService_List x) {
+
+        details = x.getDetails();
+        expendables = x.getExpendables();
+        fillDetails();
+        fillExpendables();
+
+        etDate.setText(x.getDate_visit());
+        etCost.setText(String.valueOf(x.getCost()));
+        etWork.setText(x.getWork());
+        etMileage.setText(String.valueOf(x.getMileage()));
+    }
+
+    private void fillDetails() {
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1);
+
+        if (details.length != 0) {
+
+            for (int i = 0; i < details.length; i++) {
+                adapter.add(details[i]);
+            }
+        }
+
+        lvDetails.setAdapter(adapter);
+    }
+
+    private void fillExpendables() {
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1);
+
+        if (expendables.length != 0) {
+
+            for (int i = 0; i < expendables.length; i++) {
+                adapter.add(expendables[i]);
+            }
+        }
+
+        lvExpendables.setAdapter(adapter);
+    }
+
     private void setListeners() {
 
-        findViewById(R.id.btnAdd).setOnClickListener(this);
+        btnAdd.setOnClickListener(this);
         btnAddDetails.setOnClickListener(this);
         btnAddExpendables.setOnClickListener(this);
 
@@ -193,7 +303,7 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
             etDate.setBackground(this.getDrawable(R.drawable.spinner_background_invalid));
             result = false;
         }
-        if (etCost.getText().length() == 0 || Integer.parseInt(etCost.getText().toString()) < 1) {
+        if (etCost.getText().length() == 0) {
             etCost.setBackground(this.getDrawable(R.drawable.spinner_background_invalid));
             result = false;
         }
@@ -212,6 +322,7 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
     private void postData() {
 
         ProgressBar pbWait = findViewById(R.id.pbWait);
+        pbWait.setVisibility(View.VISIBLE);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://ngknn.ru:5001/NGKNN/СергеевДЕ/api/")
@@ -220,35 +331,100 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
 
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
 
-        Services_List service = new Services_List(
+        Services_ListModel service = new Services_ListModel(
                 0,
                 Id_car,
                 etWork.getText().toString(),
                 Double.parseDouble(etCost.getText().toString()),
                 etDate.getText().toString(),
-                Integer.parseInt(etMileage.getText().toString()));
+                Integer.parseInt(etMileage.getText().toString()),
+                countDetails,
+                countExpendables);
 
-        Call<Services_List> call = retrofitAPI.createService(service);
-        call.enqueue(new Callback<Services_List>() {
+        Call<Services_ListModel> call = retrofitAPI.createService(service);
+        call.enqueue(new Callback<Services_ListModel>() {
 
             @Override
-            public void onResponse(Call<Services_List> call, Response<Services_List> response) {
+            public void onResponse(Call<Services_ListModel> call,
+                                   Response<Services_ListModel> response) {
 
                 Toast.makeText(AddServiceActivity.this, "ТО успешно добавлено",
                         Toast.LENGTH_LONG).show();
                 pbWait.setVisibility(View.GONE);
-                new Handler().postDelayed(() -> startActivity(new Intent(
-                        AddServiceActivity.this, ServiceShowActivity.class)),
+                getCar();
+
+                new Handler().postDelayed(() -> {
+                            Intent intent = new Intent(AddServiceActivity.this,
+                                    ServiceShowActivity.class);
+                            intent.putExtra("Id", Id_car);
+                            startActivity(intent);
+                        },
                         500);
             }
 
             @Override
-            public void onFailure(Call<Services_List> call, Throwable t) {
+            public void onFailure(Call<Services_ListModel> call, Throwable t) {
 
                 Toast.makeText(AddServiceActivity.this, "Ошибка: " + t.getMessage(),
                         Toast.LENGTH_LONG).show();
                 pbWait.setVisibility(View.GONE);
             }
         });
+    }
+
+    private void getCar() {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://ngknn.ru:5001/NGKNN/СергеевДЕ/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+        Call<Cars> call = retrofitAPI.getCarById(Id_car);
+        call.enqueue(new Callback<Cars>() {
+
+            @Override
+            public void onResponse(Call<Cars> call, Response<Cars> response) {
+
+                updateMileage(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Cars> call, Throwable t) {
+
+                Toast.makeText(AddServiceActivity.this, "Ошибка: " + t.getMessage(),
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void updateMileage(Cars car) {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://ngknn.ru:5001/NGKNN/СергеевДЕ/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+
+        if (car.getMileage() < Integer.parseInt(etMileage.getText().toString())) {
+
+            car.setMileage(Integer.parseInt(etMileage.getText().toString()));
+
+            Call<Cars> call = retrofitAPI.updateCar(car.getId(), car);
+            call.enqueue(new Callback<Cars>() {
+
+                @Override
+                public void onResponse(Call<Cars> call, Response<Cars> response) {
+                }
+
+                @Override
+                public void onFailure(Call<Cars> call, Throwable t) {
+
+                    Toast.makeText(AddServiceActivity.this, "Ошибка: " + t.getMessage(),
+                            Toast.LENGTH_LONG).show();
+                }
+            });
+        }
     }
 }

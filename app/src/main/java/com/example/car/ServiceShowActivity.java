@@ -22,7 +22,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @SuppressLint("NonConstantResourceId")
-public class ServiceShowActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class ServiceShowActivity extends AppCompatActivity implements View.OnClickListener,
+        AdapterView.OnItemClickListener {
 
     private int Id_car;
     private List<Services_ListValue> listServices;
@@ -68,7 +69,8 @@ public class ServiceShowActivity extends AppCompatActivity implements View.OnCli
         call.enqueue(new Callback<List<Services_ListValue>>() {
 
             @Override
-            public void onResponse(Call<List<Services_ListValue>> call, Response<List<Services_ListValue>> response) {
+            public void onResponse(Call<List<Services_ListValue>> call,
+                                   Response<List<Services_ListValue>> response) {
 
                 listServices = response.body();
                 adapter = new AdapterServices(ServiceShowActivity.this, listServices);
@@ -94,7 +96,6 @@ public class ServiceShowActivity extends AppCompatActivity implements View.OnCli
             case R.id.btnAdd:
                 Intent intent = new Intent(this, AddServiceActivity.class);
                 intent.putExtra("Id", Id_car);
-                intent.putExtra("Id_car", Id_car);
                 intent.putExtra("Details", new String[]{});
                 intent.putExtra("CountDetails", new int[]{});
                 intent.putExtra("Expendables", new String[]{});
@@ -107,8 +108,14 @@ public class ServiceShowActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-        //Intent intent = new Intent(this, CurrentCarActivity.class);
-        //intent.putExtra("Id", listServices.get(position).getId());
-        //startActivity(intent);
+        Intent intent = new Intent(this, AddServiceActivity.class);
+        intent.putExtra("Id", Id_car);
+        intent.putExtra("Details", new String[]{});
+        intent.putExtra("CountDetails", new int[]{});
+        intent.putExtra("Expendables", new String[]{});
+        intent.putExtra("CountExpendables", new int[]{});
+        intent.putExtra("FlagShow", true);
+        intent.putExtra("IdService", listServices.get(i).getId());
+        startActivity(intent);
     }
 }

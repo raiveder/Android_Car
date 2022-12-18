@@ -43,6 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:translationZ="1dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -77,8 +78,9 @@
 
                     <TextView
                         android:id="@+id/tvDetails"
+                        style="@style/HeaderService"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
                         android:text="@string/details"
                         android:textAlignment="center" />
 
@@ -92,10 +94,12 @@
                     <android.widget.Button
                         android:id="@+id/btnAddDetails"
                         style="@style/Button"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_below="@id/lvDetails"
                         android:layout_centerHorizontal="true"
+                        android:layout_marginHorizontal="100dp"
+                        android:layout_marginVertical="10dp"
                         android:text="@string/add_details" />
 
                 </RelativeLayout>
@@ -110,8 +114,9 @@
 
                     <TextView
                         android:id="@+id/tvExpendables"
+                        style="@style/HeaderService"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
                         android:text="@string/expendables"
                         android:textAlignment="center" />
 
@@ -126,10 +131,12 @@
                     <android.widget.Button
                         android:id="@+id/btnAddExpendables"
                         style="@style/Button"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_below="@id/lvExpendables"
                         android:layout_centerHorizontal="true"
+                        android:layout_marginHorizontal="100dp"
+                        android:layout_marginVertical="10dp"
                         android:text="@string/add_expendables" />
 
                 </RelativeLayout>
@@ -154,17 +161,16 @@
                         style="@style/AddLabel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/date"
-
+                        android:text="@string/date_pattern"
                         android:textAlignment="center"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/etDate"
                         style="@style/EditText"
-                        android:inputType="date"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp" />
+                        android:layout_height="40dp"
+                        android:inputType="date" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -186,9 +192,9 @@
                     <EditText
                         android:id="@+id/etCost"
                         style="@style/EditText"
-                        android:inputType="number"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp" />
+                        android:layout_height="40dp"
+                        android:inputType="number" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -232,19 +238,19 @@
                 <EditText
                     android:id="@+id/etMileage"
                     style="@style/EditText"
-                    android:inputType="number"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp" />
+                    android:layout_height="40dp"
+                    android:inputType="number" />
             </LinearLayout>
 
             <android.widget.Button
                 android:id="@+id/btnAdd"
                 style="@style/Button"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_below="@id/llWork"
+                android:layout_below="@id/llMileage"
                 android:layout_centerHorizontal="true"
-                android:layout_marginHorizontal="50dp"
+                android:layout_marginHorizontal="100dp"
                 android:layout_marginTop="30dp"
                 android:text="@string/add" />
         </RelativeLayout>

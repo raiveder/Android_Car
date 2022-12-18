@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EntryActivity">
+
+    <TextView
+        android:id="@+id/tvHeader"
+        style="@style/Header"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="@string/app_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RelativeLayout
+        android:id="@+id/rlInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvHeader">
+
+
+        <TextView
+            android:id="@+id/tvLogin"
+            style="@style/AddLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etLogin"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@id/tvLogin" />
+
+        <TextView
+            android:id="@+id/tvPassword"
+            style="@style/AddLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etLogin"
+            android:text="@string/password"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etPassword"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@id/tvPassword" />
+
+        <android.widget.Button
+            android:id="@+id/btnEntry"
+            style="@style/Button"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@id/etPassword"
+            android:layout_centerHorizontal="true"
+            android:layout_marginVertical="20dp"
+            android:text="@string/entry" />
+
+        <android.widget.Button
+            android:id="@+id/btnReg"
+            style="@style/Button"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@id/btnEntry"
+            android:layout_centerHorizontal="true"
+            android:text="@string/registration" />
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

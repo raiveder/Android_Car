@@ -28,8 +28,13 @@
     <string name="add_expendables">Добавить расходники</string>
     <string name="input_count">Введите количество</string>
     <string name="date">Дата</string>
+    <string name="date_pattern">Дата (дд/мм/гггг)</string>
     <string name="cost">Стоимость</string>
     <string name="work_name">Работа (краткое наименование поездки до 20 символов)</string>
     <string name="work">Работа</string>
     <string name="add_new_tm">Добавить новое ТО</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="entry">Войти</string>
+    <string name="registration">Регистрация</string>
 </resources>

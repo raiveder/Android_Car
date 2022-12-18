@@ -347,6 +347,7 @@ public class AddCarActivity extends AppCompatActivity
     public void onClick(View view) {
 
         switch (view.getId()) {
+
             case R.id.image:
                 Intent intent = new Intent(Intent.ACTION_PICK,
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI);

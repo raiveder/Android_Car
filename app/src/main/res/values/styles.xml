@@ -53,4 +53,13 @@
         <item name="android:background">@drawable/spinner_background</item>
         <item name="android:paddingHorizontal" tools:targetApi="o">15dp</item>
     </style>
+
+    <style name="HeaderService">
+        <item name="android:textSize">17dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@color/alto</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

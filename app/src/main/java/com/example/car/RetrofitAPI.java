@@ -33,8 +33,11 @@ public interface RetrofitAPI {
     @GET("Services_List/")
     Call<List<Services_ListValue>> getServices();
 
+    @GET("Services_List/")
+    Call<CurrentService_List> getServiceById(@Query("id") int id);
+
     @POST("Services_List/")
-    Call<Services_List> createService(@Body Services_List services_ListModel);
+    Call<Services_ListModel> createService(@Body Services_ListModel services_List);
 
     @GET("Details/")
     Call<List<Details>> getDetails();
