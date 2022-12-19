@@ -325,6 +325,10 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
             etWork.setBackground(this.getDrawable(R.drawable.spinner_background_invalid));
             result = false;
         }
+        if (etMileage.getText().length() == 0) {
+            etMileage.setBackground(this.getDrawable(R.drawable.spinner_background_invalid));
+            result = false;
+        }
         if (!result && countDetails.length != 0) {
             Toast.makeText(this, "Заполните недостающие данные",
                     Toast.LENGTH_SHORT).show();
@@ -370,7 +374,8 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
                 new Handler().postDelayed(() -> {
                             Intent intent = new Intent(AddServiceActivity.this,
                                     ServiceShowActivity.class);
-                            intent.putExtra("Id", Id_car);
+                            intent.putExtra("Id_car", Id_car);
+                            intent.putExtra("Id_user", Id_user);
                             startActivity(intent);
                         },
                         500);

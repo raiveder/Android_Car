@@ -326,6 +326,7 @@ public class AddCarActivity extends AppCompatActivity
         etVIN.setText(car.getVIN());
         etMileage.setText(String.valueOf(car.getMileage()));
         imageView.setImageBitmap(Images.getBitmap(this, car.getImage()));
+        ImageString = car.getImage();
 
         pbWait.setVisibility(View.GONE);
         scrollView.setVisibility(View.VISIBLE);
