@@ -6,12 +6,12 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -21,7 +21,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @SuppressLint("NonConstantResourceId")
-public class ShowCarsActivity extends AppCompatActivity implements View.OnClickListener {
+public class ShowCarsActivity extends AppCompatActivity implements View.OnClickListener,
+        AdapterView.OnItemClickListener {
 
     private List<CarsValue> listCar;
     private ListView listView;
@@ -33,22 +34,21 @@ public class ShowCarsActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_cars);
 
+        initializeComponent();
+
+        getData();
+    }
+
+    private void initializeComponent() {
+
         Id_user = getIntent().getExtras().getInt("Id_user");
 
         Button btnAdd = findViewById(R.id.btnAdd);
-        btnAdd.setOnClickListener(this);
-
-        listCar = new ArrayList<>();
-        adapter = new AdapterCars(this, listCar);
         listView = findViewById(R.id.listView);
-        listView.setOnItemClickListener((arg0, arg1, position, arg3) -> {
-            Intent intent = new Intent(this, CurrentCarActivity.class);
-            intent.putExtra("Id_car", listCar.get(position).getId());
-            intent.putExtra("Id_user", Id_user);
-            startActivity(intent);
-        });
 
-        getData();
+        btnAdd.setOnClickListener(this);
+        findViewById(R.id.imageBack).setOnClickListener(this);
+        listView.setOnItemClickListener(this);
     }
 
     private void getData() {
@@ -78,7 +78,7 @@ public class ShowCarsActivity extends AppCompatActivity implements View.OnClickL
             public void onFailure(Call<List<CarsValue>> call, Throwable t) {
 
                 Toast.makeText(ShowCarsActivity.this, "Ошибка: " + t.getMessage(),
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -93,6 +93,20 @@ public class ShowCarsActivity extends AppCompatActivity implements View.OnClickL
                 intent.putExtra("Id_user", Id_user);
                 startActivity(intent);
                 break;
+
+            case R.id.imageBack:
+
+                startActivity(new Intent(this, EntryActivity.class));
+                break;
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+        Intent intent = new Intent(this, CurrentCarActivity.class);
+        intent.putExtra("Id_car", listCar.get(i).getId());
+        intent.putExtra("Id_user", Id_user);
+        startActivity(intent);
     }
 }

@@ -31,6 +31,7 @@ public class AddDetailsActivity extends AppCompatActivity implements View.OnClic
     private List<Details> listDetails;
     private AdapterDetails adapter;
     private int Id_car;
+    private int Id_user;
     private String[] details;
     private int[] countDetails;
     private String[] expendables;
@@ -50,10 +51,10 @@ public class AddDetailsActivity extends AppCompatActivity implements View.OnClic
     private void initializeComponent() {
 
         lvDetails = findViewById(R.id.lvDetails);
-        lvDetails.setOnItemClickListener(this);
 
-        Button btnAdd = findViewById(R.id.btnAdd);
-        btnAdd.setOnClickListener(this);
+        lvDetails.setOnItemClickListener(this);
+        findViewById(R.id.btnAdd).setOnClickListener(this);
+        findViewById(R.id.imageBack).setOnClickListener(this);
     }
 
     private void getData() {
@@ -83,7 +84,7 @@ public class AddDetailsActivity extends AppCompatActivity implements View.OnClic
             public void onFailure(Call<List<Details>> call, Throwable t) {
 
                 Toast.makeText(AddDetailsActivity.this, "Ошибка: " + t.getMessage(),
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
                 pbWait.setVisibility(View.GONE);
             }
         });
@@ -93,6 +94,7 @@ public class AddDetailsActivity extends AppCompatActivity implements View.OnClic
 
         Bundle arg = getIntent().getExtras();
         Id_car = arg.getInt("Id_car");
+        Id_user = arg.getInt("Id_user");
         details = arg.getStringArray("Details");
         countDetails = arg.getIntArray("CountDetails");
         expendables = arg.getStringArray("Expendables");
@@ -156,9 +158,10 @@ public class AddDetailsActivity extends AppCompatActivity implements View.OnClic
         switch (v.getId()) {
 
             case R.id.btnAdd:
+            case R.id.imageBack:
                 Intent intent = new Intent(this, AddServiceActivity.class);
-                intent.putExtra("Id", Id_car);
                 intent.putExtra("Id_car", Id_car);
+                intent.putExtra("Id_user", Id_user);
                 intent.putExtra("Details", details);
                 intent.putExtra("CountDetails", countDetails);
                 intent.putExtra("Expendables", expendables);

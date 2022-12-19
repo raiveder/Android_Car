@@ -109,6 +109,7 @@ public class AddCarActivity extends AppCompatActivity
 
     private void setListeners() {
 
+        findViewById(R.id.imageBack).setOnClickListener(this);
         spBrand.setOnItemSelectedListener(this);
         spModel.setOnItemSelectedListener(this);
         spGeneration.setOnItemSelectedListener(this);
@@ -367,6 +368,18 @@ public class AddCarActivity extends AppCompatActivity
                         putData();
                     }
                 }
+                break;
+
+            case R.id.imageBack:
+                if (btnAdd.getText().toString().equals("Изменить")) {
+                    intent = new Intent(this, CurrentCarActivity.class);
+                    intent.putExtra("Id_user", Id_user);
+                    intent.putExtra("Id_car", Id_car);
+                } else {
+                    intent = new Intent(this, ShowCarsActivity.class);
+                    intent.putExtra("Id_user", Id_user);
+                }
+                startActivity(intent);
                 break;
         }
     }

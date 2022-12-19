@@ -30,11 +30,12 @@ public class AddExpendablesActivity extends AppCompatActivity implements View.On
     private ListView lvExpendables;
     private List<Expendables> listExpendables;
     private AdapterExpendables adapter;
-    private int Id_car;
     private String[] details;
     private int[] countDetails;
     private String[] expendables;
     private int[] countExpendables;
+    private int Id_car;
+    private int Id_user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +51,10 @@ public class AddExpendablesActivity extends AppCompatActivity implements View.On
     private void initializeComponent() {
 
         lvExpendables = findViewById(R.id.lvExpendables);
-        lvExpendables.setOnItemClickListener(this);
 
-        Button btnAdd = findViewById(R.id.btnAdd);
-        btnAdd.setOnClickListener(this);
+        lvExpendables.setOnItemClickListener(this);
+        findViewById(R.id.btnAdd).setOnClickListener(this);
+        findViewById(R.id.imageBack).setOnClickListener(this);
     }
 
     private void getData() {
@@ -93,6 +94,7 @@ public class AddExpendablesActivity extends AppCompatActivity implements View.On
 
         Bundle arg = getIntent().getExtras();
         Id_car = arg.getInt("Id_car");
+        Id_user = arg.getInt("Id_user");
         details = arg.getStringArray("Details");
         countDetails = arg.getIntArray("CountDetails");
         expendables = arg.getStringArray("Expendables");
@@ -157,9 +159,10 @@ public class AddExpendablesActivity extends AppCompatActivity implements View.On
         switch (v.getId()) {
 
             case R.id.btnAdd:
+            case R.id.imageBack:
                 Intent intent = new Intent(this, AddServiceActivity.class);
-                intent.putExtra("Id", Id_car);
                 intent.putExtra("Id_car", Id_car);
+                intent.putExtra("Id_user", Id_user);
                 intent.putExtra("Details", details);
                 intent.putExtra("CountDetails", countDetails);
                 intent.putExtra("Expendables", expendables);

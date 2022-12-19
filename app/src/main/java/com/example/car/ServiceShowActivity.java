@@ -25,10 +25,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ServiceShowActivity extends AppCompatActivity implements View.OnClickListener,
         AdapterView.OnItemClickListener {
 
-    private int Id_car;
     private List<Services_ListValue> listServices;
     private ListView listView;
     private AdapterServices adapter;
+    private int Id_car;
+    private int Id_user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,15 +42,13 @@ public class ServiceShowActivity extends AppCompatActivity implements View.OnCli
 
     private void initializeComponent() {
 
-        Id_car = getIntent().getExtras().getInt("Id");
+        Id_car = getIntent().getExtras().getInt("Id_car");
+        Id_user = getIntent().getExtras().getInt("Id_user");
 
-        Button btnAdd = findViewById(R.id.btnAdd);
         listView = findViewById(R.id.listView);
 
-        listServices = new ArrayList<>();
-        adapter = new AdapterServices(this, listServices);
-
-        btnAdd.setOnClickListener(this);
+        findViewById(R.id.imageBack).setOnClickListener(this);
+        findViewById(R.id.btnAdd).setOnClickListener(this);
         listView.setOnItemClickListener(this);
     }
 
@@ -95,11 +94,19 @@ public class ServiceShowActivity extends AppCompatActivity implements View.OnCli
 
             case R.id.btnAdd:
                 Intent intent = new Intent(this, AddServiceActivity.class);
-                intent.putExtra("Id", Id_car);
+                intent.putExtra("Id_car", Id_car);
+                intent.putExtra("Id_user", Id_user);
                 intent.putExtra("Details", new String[]{});
                 intent.putExtra("CountDetails", new int[]{});
                 intent.putExtra("Expendables", new String[]{});
                 intent.putExtra("CountExpendables", new int[]{});
+                startActivity(intent);
+                break;
+
+            case R.id.imageBack:
+                intent = new Intent(this, CurrentCarActivity.class);
+                intent.putExtra("Id_car", Id_car);
+                intent.putExtra("Id_user", Id_user);
                 startActivity(intent);
                 break;
         }
@@ -109,7 +116,8 @@ public class ServiceShowActivity extends AppCompatActivity implements View.OnCli
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
         Intent intent = new Intent(this, AddServiceActivity.class);
-        intent.putExtra("Id", Id_car);
+        intent.putExtra("Id_car", Id_car);
+        intent.putExtra("Id_user", Id_user);
         intent.putExtra("Details", new String[]{});
         intent.putExtra("CountDetails", new int[]{});
         intent.putExtra("Expendables", new String[]{});

@@ -38,9 +38,6 @@ public class CurrentCarActivity extends AppCompatActivity implements View.OnClic
     private TextView tvVIN;
     private TextView tvMileage;
     private ImageView imageView;
-    private Button btnService;
-    private Button btnChange;
-    private Button btnDelete;
     private ProgressBar pbWait;
 
     private CarsValue car;
@@ -76,14 +73,12 @@ public class CurrentCarActivity extends AppCompatActivity implements View.OnClic
         tvWheel = findViewById(R.id.tvWheelValue);
         tvVIN = findViewById(R.id.tvVINValue);
         tvMileage = findViewById(R.id.tvMileageValue);
-        btnService = findViewById(R.id.btnService);
-        btnChange = findViewById(R.id.btnChange);
-        btnDelete = findViewById(R.id.btnDelete);
         pbWait = findViewById(R.id.pbWait);
 
-        btnService.setOnClickListener(this);
-        btnChange.setOnClickListener(this);
-        btnDelete.setOnClickListener(this);
+        findViewById(R.id.imageBack).setOnClickListener(this);
+        findViewById(R.id.btnService).setOnClickListener(this);
+        findViewById(R.id.btnChange).setOnClickListener(this);
+        findViewById(R.id.btnDelete).setOnClickListener(this);
     }
 
     private void getData(int id_car) {
@@ -119,7 +114,7 @@ public class CurrentCarActivity extends AppCompatActivity implements View.OnClic
             public void onFailure(Call<List<CarsValue>> call, Throwable t) {
 
                 Toast.makeText(CurrentCarActivity.this, "Ошибка: " + t.getMessage(),
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
                 pbWait.setVisibility(View.GONE);
             }
         });
@@ -155,9 +150,11 @@ public class CurrentCarActivity extends AppCompatActivity implements View.OnClic
 
             case R.id.btnService:
                 Intent intent = new Intent(this, ServiceShowActivity.class);
-                intent.putExtra("Id", car.getId());
+                intent.putExtra("Id_car", car.getId());
+                intent.putExtra("Id_user", Id_user);
                 startActivity(intent);
                 break;
+
             case R.id.btnChange:
                 intent = new Intent(this, AddCarActivity.class);
                 intent.putExtra("Id_car", car.getId());
@@ -165,8 +162,15 @@ public class CurrentCarActivity extends AppCompatActivity implements View.OnClic
                 intent.putExtra("Brand", car.getBrand());
                 startActivity(intent);
                 break;
+
             case R.id.btnDelete:
                 deleteData();
+                break;
+
+            case R.id.imageBack:
+                intent = new Intent(this, ShowCarsActivity.class);
+                intent.putExtra("Id_user", Id_user);
+                startActivity(intent);
                 break;
         }
     }
@@ -192,16 +196,20 @@ public class CurrentCarActivity extends AppCompatActivity implements View.OnClic
                 Toast.makeText(CurrentCarActivity.this, "Автомобиль успешно удалён",
                         Toast.LENGTH_SHORT).show();
                 pbWait.setVisibility(View.GONE);
-                new Handler().postDelayed(() -> startActivity(
-                        new Intent(CurrentCarActivity.this,
-                                ShowCarsActivity.class)), 500);
+
+                new Handler().postDelayed(() -> {
+                    Intent intent = new Intent(CurrentCarActivity.this,
+                            ShowCarsActivity.class);
+                    intent.putExtra("Id_user", Id_user);
+                    startActivity(intent);
+                }, 500);
             }
 
             @Override
             public void onFailure(Call<Cars> call, Throwable t) {
 
                 Toast.makeText(CurrentCarActivity.this, "Ошибка: " + t.getMessage(),
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
                 pbWait.setVisibility(View.GONE);
             }
         });

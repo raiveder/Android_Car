@@ -35,12 +35,13 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
     private Button btnAddExpendables;
     private ListView lvDetails;
     private ListView lvExpendables;
-    private int Id_car;
     private String[] details;
     private int[] countDetails;
     private String[] expendables;
     private int[] countExpendables;
     private boolean FlagShow;
+    private int Id_car;
+    private int Id_user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +64,8 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
     private void initializeComponent() {
 
         Bundle arg = getIntent().getExtras();
-        Id_car = arg.getInt("Id");
+        Id_car = arg.getInt("Id_car");
+        Id_user = arg.getInt("Id_user");
         details = arg.getStringArray("Details");
         countDetails = arg.getIntArray("CountDetails");
         expendables = arg.getStringArray("Expendables");
@@ -131,7 +133,7 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
             public void onFailure(Call<CurrentService_List> call, Throwable t) {
 
                 Toast.makeText(AddServiceActivity.this, "Ошибка: " + t.getMessage(),
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
                 pbWait.setVisibility(View.GONE);
             }
         });
@@ -185,6 +187,7 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
         btnAdd.setOnClickListener(this);
         btnAddDetails.setOnClickListener(this);
         btnAddExpendables.setOnClickListener(this);
+        findViewById(R.id.imageBack).setOnClickListener(this);
 
         etCost.addTextChangedListener(new TextWatcher() {
             @Override
@@ -267,25 +270,36 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
             case R.id.btnAddDetails:
                 Intent intent = new Intent(this, AddDetailsActivity.class);
                 intent.putExtra("Id_car", Id_car);
+                intent.putExtra("Id_user", Id_user);
                 intent.putExtra("Details", details);
                 intent.putExtra("CountDetails", countDetails);
                 intent.putExtra("Expendables", expendables);
                 intent.putExtra("CountExpendables", countExpendables);
                 startActivity(intent);
                 break;
+
             case R.id.btnAddExpendables:
                 intent = new Intent(this, AddExpendablesActivity.class);
                 intent.putExtra("Id_car", Id_car);
+                intent.putExtra("Id_user", Id_user);
                 intent.putExtra("Details", details);
                 intent.putExtra("CountDetails", countDetails);
                 intent.putExtra("Expendables", expendables);
                 intent.putExtra("CountExpendables", countExpendables);
                 startActivity(intent);
                 break;
+
             case R.id.btnAdd:
                 if (checkData()) {
                     postData();
                 }
+                break;
+
+            case R.id.imageBack:
+                intent = new Intent(this, ServiceShowActivity.class);
+                intent.putExtra("Id_car", Id_car);
+                intent.putExtra("Id_user", Id_user);
+                startActivity(intent);
                 break;
         }
     }
@@ -296,7 +310,7 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
 
         if (countDetails.length == 0 && countExpendables.length == 0) {
             Toast.makeText(this, "Выберите детали или расходные материалы",
-                    Toast.LENGTH_LONG).show();
+                    Toast.LENGTH_SHORT).show();
             result = false;
         }
         if (etDate.getText().length() == 0 || etDate.getText().length() < 8) {
@@ -313,7 +327,7 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
         }
         if (!result && countDetails.length != 0) {
             Toast.makeText(this, "Заполните недостающие данные",
-                    Toast.LENGTH_LONG).show();
+                    Toast.LENGTH_SHORT).show();
         }
 
         return result;
@@ -366,7 +380,7 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
             public void onFailure(Call<Services_ListModel> call, Throwable t) {
 
                 Toast.makeText(AddServiceActivity.this, "Ошибка: " + t.getMessage(),
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
                 pbWait.setVisibility(View.GONE);
             }
         });
@@ -393,7 +407,7 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
             public void onFailure(Call<Cars> call, Throwable t) {
 
                 Toast.makeText(AddServiceActivity.this, "Ошибка: " + t.getMessage(),
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -422,7 +436,7 @@ public class AddServiceActivity extends AppCompatActivity implements View.OnClic
                 public void onFailure(Call<Cars> call, Throwable t) {
 
                     Toast.makeText(AddServiceActivity.this, "Ошибка: " + t.getMessage(),
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
                 }
             });
         }
