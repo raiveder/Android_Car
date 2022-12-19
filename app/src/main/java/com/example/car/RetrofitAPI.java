@@ -16,7 +16,7 @@ public interface RetrofitAPI {
     Call<ParametrsCar> getParametrs();
 
     @GET("Cars/")
-    Call<List<CarsValue>> getCars();
+    Call<List<CarsValue>> getCars(@Query("idUser") int idUser);
 
     @GET("Cars/")
     Call<Cars> getCarById(@Query("id") int id);
@@ -31,7 +31,7 @@ public interface RetrofitAPI {
     Call<Cars> deleteCar(@Query("id") int id);
 
     @GET("Services_List/")
-    Call<List<Services_ListValue>> getServices();
+    Call<List<Services_ListValue>> getServices(@Query("idCar") int idCar);
 
     @GET("Services_List/")
     Call<CurrentService_List> getServiceById(@Query("id") int id);
@@ -44,4 +44,10 @@ public interface RetrofitAPI {
 
     @GET("Expendables/")
     Call<List<Expendables>> getExpendables();
+
+    @GET("Accounts/")
+    Call<Accounts> getAccount(@Query("login") String login);
+
+    @POST("Accounts/")
+    Call<Accounts> createAccount(@Body Accounts account);
 }

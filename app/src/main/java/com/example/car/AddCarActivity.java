@@ -56,7 +56,8 @@ public class AddCarActivity extends AppCompatActivity
     private ImageView imageView;
     private Button btnAdd;
 
-    private int Id;
+    private int Id_car;
+    private int Id_user;
     private String ImageString = "null";
     private ParametrsCar Parametrs;
     private String BrandValue;
@@ -69,8 +70,11 @@ public class AddCarActivity extends AppCompatActivity
         initializeComponent();
 
         Bundle arg = getIntent().getExtras();
-        if (arg != null) {
-            Id = arg.getInt("Id");
+        Id_user = arg.getInt("Id_user");
+
+        if (arg.getInt("Id_car") != 0) {
+
+            Id_car = arg.getInt("Id_car");
             BrandValue = arg.getString("Brand");
             btnAdd.setText("Изменить");
             TextView tv = findViewById(R.id.tvAdd);
@@ -262,7 +266,7 @@ public class AddCarActivity extends AppCompatActivity
         adapterWheels.addAll(Parametrs.getWheelsValues());
         spWheel.setAdapter(adapterWheels);
 
-        if (Id != 0) {
+        if (Id_car != 0) {
 
             int idBrand = 0;
             for (int i = 0; i < Parametrs.getBrandsValues().length; i++) {
@@ -286,7 +290,7 @@ public class AddCarActivity extends AppCompatActivity
                 .build();
 
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
-        Call<Cars> call = retrofitAPI.getCarById(Id);
+        Call<Cars> call = retrofitAPI.getCarById(Id_car);
         call.enqueue(new Callback<Cars>() {
 
             @Override
@@ -357,7 +361,7 @@ public class AddCarActivity extends AppCompatActivity
 
             case R.id.btnAdd:
                 if (checkData()) {
-                    if (Id == 0) {
+                    if (Id_car == 0) {
                         postData();
                     } else {
                         putData();
@@ -392,7 +396,8 @@ public class AddCarActivity extends AppCompatActivity
                 spWheel.getSelectedItemPosition(),
                 etVIN.getText().toString(),
                 Integer.parseInt(etMileage.getText().toString()),
-                ImageString);
+                ImageString,
+                Id_user);
 
         Call<Cars> call = retrofitAPI.createCar(car);
         call.enqueue(new Callback<Cars>() {
@@ -403,8 +408,12 @@ public class AddCarActivity extends AppCompatActivity
                 Toast.makeText(AddCarActivity.this, "Автомобиль успешно добавлен",
                         Toast.LENGTH_LONG).show();
                 pbWait.setVisibility(View.GONE);
-                new Handler().postDelayed(() -> startActivity(new Intent(
-                        AddCarActivity.this, ShowCarsActivity.class)), 500);
+                new Handler().postDelayed(() -> {
+                    Intent intent = new Intent(
+                            AddCarActivity.this, ShowCarsActivity.class);
+                    intent.putExtra("Id_user", Id_user);
+                    startActivity(intent);
+                }, 500);
             }
 
             @Override
@@ -429,7 +438,7 @@ public class AddCarActivity extends AppCompatActivity
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
 
         Cars car = new Cars(
-                Id,
+                Id_car,
                 spModel.getSelectedItemPosition(),
                 spGeneration.getSelectedItemPosition(),
                 etEquipment.getText().toString(),
@@ -442,9 +451,10 @@ public class AddCarActivity extends AppCompatActivity
                 spWheel.getSelectedItemPosition(),
                 etVIN.getText().toString(),
                 Integer.parseInt(etMileage.getText().toString()),
-                ImageString);
+                ImageString,
+                Id_user);
 
-        Call<Cars> call = retrofitAPI.updateCar(Id, car);
+        Call<Cars> call = retrofitAPI.updateCar(Id_car, car);
         call.enqueue(new Callback<Cars>() {
 
             @Override
@@ -457,7 +467,8 @@ public class AddCarActivity extends AppCompatActivity
                 new Handler().postDelayed(() -> {
                     Intent intent = new Intent(AddCarActivity.this,
                             CurrentCarActivity.class);
-                    intent.putExtra("Id", car.getId());
+                    intent.putExtra("Id_car", car.getId());
+                    intent.putExtra("Id_user", Id_user);
                     startActivity(intent);
                 }, 500);
             }

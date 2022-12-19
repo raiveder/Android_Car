@@ -64,7 +64,7 @@ public class ServiceShowActivity extends AppCompatActivity implements View.OnCli
 
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
 
-        Call<List<Services_ListValue>> call = retrofitAPI.getServices();
+        Call<List<Services_ListValue>> call = retrofitAPI.getServices(Id_car);
 
         call.enqueue(new Callback<List<Services_ListValue>>() {
 

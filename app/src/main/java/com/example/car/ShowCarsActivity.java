@@ -43,7 +43,8 @@ public class ShowCarsActivity extends AppCompatActivity implements View.OnClickL
         listView = findViewById(R.id.listView);
         listView.setOnItemClickListener((arg0, arg1, position, arg3) -> {
             Intent intent = new Intent(this, CurrentCarActivity.class);
-            intent.putExtra("Id", listCar.get(position).getId());
+            intent.putExtra("Id_car", listCar.get(position).getId());
+            intent.putExtra("Id_user", Id_user);
             startActivity(intent);
         });
 
@@ -59,7 +60,7 @@ public class ShowCarsActivity extends AppCompatActivity implements View.OnClickL
 
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
 
-        Call<List<CarsValue>> call = retrofitAPI.getCars();
+        Call<List<CarsValue>> call = retrofitAPI.getCars(Id_user);
 
         call.enqueue(new Callback<List<CarsValue>>() {
 
@@ -88,7 +89,9 @@ public class ShowCarsActivity extends AppCompatActivity implements View.OnClickL
         switch (view.getId()) {
 
             case R.id.btnAdd:
-                startActivity(new Intent(this, AddCarActivity.class));
+                Intent intent = new Intent(this, AddCarActivity.class);
+                intent.putExtra("Id_user", Id_user);
+                startActivity(intent);
                 break;
         }
     }

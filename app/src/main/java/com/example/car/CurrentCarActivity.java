@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,12 +37,14 @@ public class CurrentCarActivity extends AppCompatActivity implements View.OnClic
     private TextView tvWheel;
     private TextView tvVIN;
     private TextView tvMileage;
+    private ImageView imageView;
     private Button btnService;
     private Button btnChange;
     private Button btnDelete;
     private ProgressBar pbWait;
 
     private CarsValue car;
+    private int Id_user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +54,15 @@ public class CurrentCarActivity extends AppCompatActivity implements View.OnClic
         initializeComponent();
 
         Bundle arg = getIntent().getExtras();
-        int id_car = arg.getInt("Id");
+        int id_car = arg.getInt("Id_car");
+        Id_user = arg.getInt("Id_user");
 
         getData(id_car);
     }
 
     private void initializeComponent() {
 
+        imageView = findViewById(R.id.image);
         tvNameCar = findViewById(R.id.tvNameCar);
         tvBrand = findViewById(R.id.tvBrandValue);
         tvModel = findViewById(R.id.tvModelValue);
@@ -81,7 +86,7 @@ public class CurrentCarActivity extends AppCompatActivity implements View.OnClic
         btnDelete.setOnClickListener(this);
     }
 
-    private void getData(int id) {
+    private void getData(int id_car) {
 
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -91,7 +96,7 @@ public class CurrentCarActivity extends AppCompatActivity implements View.OnClic
 
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
 
-        Call<List<CarsValue>> call = retrofitAPI.getCars();
+        Call<List<CarsValue>> call = retrofitAPI.getCars(Id_user);
 
         call.enqueue(new Callback<List<CarsValue>>() {
 
@@ -101,7 +106,7 @@ public class CurrentCarActivity extends AppCompatActivity implements View.OnClic
                 List<CarsValue> tempList = response.body();
 
                 for (int i = 0; i < tempList.size(); i++) {
-                    if (tempList.get(i).getId() == id) {
+                    if (tempList.get(i).getId() == id_car) {
                         car = tempList.get(i);
                         break;
                     }
@@ -127,6 +132,7 @@ public class CurrentCarActivity extends AppCompatActivity implements View.OnClic
         findViewById(R.id.rlInfo).setVisibility(View.VISIBLE);
         findViewById(R.id.rlButtons).setVisibility(View.VISIBLE);
 
+        imageView.setImageBitmap(Images.getBitmap(this, car.getImage()));
         tvNameCar.setText(car.getBrand() + " " + car.getModel() + " " + car.getGeneration());
         tvBrand.setText(car.getBrand());
         tvModel.setText(car.getModel());
@@ -154,14 +160,14 @@ public class CurrentCarActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.btnChange:
                 intent = new Intent(this, AddCarActivity.class);
-                intent.putExtra("Id", car.getId());
+                intent.putExtra("Id_car", car.getId());
+                intent.putExtra("Id_user", Id_user);
                 intent.putExtra("Brand", car.getBrand());
                 startActivity(intent);
                 break;
             case R.id.btnDelete:
                 deleteData();
                 break;
-
         }
     }
 
