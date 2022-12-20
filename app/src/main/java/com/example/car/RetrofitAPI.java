@@ -45,6 +45,9 @@ public interface RetrofitAPI {
     @GET("Expendables/")
     Call<List<Expendables>> getExpendables();
 
+    @DELETE("Services_List/")
+    Call<Services_ListModel> deleteService(@Query("id") int id);
+
     @GET("Accounts/")
     Call<Accounts> getAccount(@Query("login") String login);
 

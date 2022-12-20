@@ -1,15 +1,19 @@
 package com.example.car;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -23,7 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @SuppressLint("NonConstantResourceId")
 public class ServiceShowActivity extends AppCompatActivity implements View.OnClickListener,
-        AdapterView.OnItemClickListener {
+        AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     private List<Services_ListValue> listServices;
     private ListView listView;
@@ -50,6 +54,7 @@ public class ServiceShowActivity extends AppCompatActivity implements View.OnCli
         findViewById(R.id.imageBack).setOnClickListener(this);
         findViewById(R.id.btnAdd).setOnClickListener(this);
         listView.setOnItemClickListener(this);
+        listView.setOnItemLongClickListener(this);
     }
 
     private void getData() {
@@ -74,7 +79,7 @@ public class ServiceShowActivity extends AppCompatActivity implements View.OnCli
                 listServices = response.body();
                 adapter = new AdapterServices(ServiceShowActivity.this, listServices);
                 pbWait.setVisibility(View.GONE);
-                setMileageColon();
+                setCaption();
                 listView.setAdapter(adapter);
             }
 
@@ -82,16 +87,17 @@ public class ServiceShowActivity extends AppCompatActivity implements View.OnCli
             public void onFailure(Call<List<Services_ListValue>> call, Throwable t) {
 
                 Toast.makeText(ServiceShowActivity.this, "Ошибка: " + t.getMessage(),
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
                 pbWait.setVisibility(View.GONE);
             }
         });
     }
 
-    private void setMileageColon() {
+    private void setCaption() {
 
         for (int i = 0; i < listServices.size(); i++) {
             listServices.get(i).setMileage(listServices.get(i).getMileage() + " км");
+            listServices.get(i).setCost(listServices.get(i).getCost() + " р");
         }
     }
 
@@ -133,5 +139,66 @@ public class ServiceShowActivity extends AppCompatActivity implements View.OnCli
         intent.putExtra("FlagShow", true);
         intent.putExtra("IdService", listServices.get(i).getId());
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+        getAlertDialog(listServices.get(position).getId(), position).show();
+
+        return true;
+    }
+
+    private AlertDialog.Builder getAlertDialog(int idService, int position) {
+
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("Удаление").setMessage("Удалить данные о сервисе?");
+
+        alertDialogBuilder.setPositiveButton("Удалить", (dialog, id) -> {
+
+            deleteData(idService, position);
+        });
+
+        alertDialogBuilder.setNegativeButton("Отмена", (dialog, id) -> {
+        });
+
+        return alertDialogBuilder;
+    }
+
+    private void deleteData(int id, int position) {
+
+        ProgressBar pbWait = findViewById(R.id.pbWait);
+        pbWait.setVisibility(View.VISIBLE);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://ngknn.ru:5001/NGKNN/СергеевДЕ/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+
+        Call<Services_ListModel> call = retrofitAPI.deleteService(id);
+
+        call.enqueue(new Callback<Services_ListModel>() {
+
+            @Override
+            public void onResponse(Call<Services_ListModel> call, Response<Services_ListModel> response) {
+
+                Toast.makeText(ServiceShowActivity.this, "Сервис успешно удалён",
+                        Toast.LENGTH_SHORT).show();
+                pbWait.setVisibility(View.GONE);
+
+                getData();
+            }
+
+            @Override
+            public void onFailure(Call<Services_ListModel> call, Throwable t) {
+
+                Toast.makeText(ServiceShowActivity.this, "Ошибка: " + t.getMessage(),
+                        Toast.LENGTH_SHORT).show();
+                pbWait.setVisibility(View.GONE);
+            }
+        });
     }
 }
