@@ -276,7 +276,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/etVIN"
-                android:text="@string/mileage"
+                android:text="@string/mileage_in_km"
                 android:textStyle="bold" />
 
             <EditText

@@ -74,6 +74,7 @@ public class ServiceShowActivity extends AppCompatActivity implements View.OnCli
                 listServices = response.body();
                 adapter = new AdapterServices(ServiceShowActivity.this, listServices);
                 pbWait.setVisibility(View.GONE);
+                setMileageColon();
                 listView.setAdapter(adapter);
             }
 
@@ -85,6 +86,13 @@ public class ServiceShowActivity extends AppCompatActivity implements View.OnCli
                 pbWait.setVisibility(View.GONE);
             }
         });
+    }
+
+    private void setMileageColon() {
+
+        for (int i = 0; i < listServices.size(); i++) {
+            listServices.get(i).setMileage(listServices.get(i).getMileage() + " км");
+        }
     }
 
     @Override
