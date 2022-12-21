@@ -20,7 +20,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @SuppressLint("UseCompatLoadingForDrawables")
-public class RegistrationActivity extends AppCompatActivity {
+public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener {
 
     EditText etLogin;
     EditText etPassword;
@@ -40,12 +40,9 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private void setListeners() {
 
-        findViewById(R.id.btnReg).setOnClickListener((v) -> {
+        findViewById(R.id.btnReg).setOnClickListener(this);
 
-            if (checkData()) {
-                checkAccount();
-            }
-        });
+        findViewById(R.id.imageBack).setOnClickListener(this);
 
         etLogin.addTextChangedListener(new TextWatcher() {
             @Override
@@ -200,5 +197,22 @@ public class RegistrationActivity extends AppCompatActivity {
                 pbWait.setVisibility(View.GONE);
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId())
+        {
+            case R.id.btnReg:
+                if (checkData()) {
+                    checkAccount();
+                }
+                break;
+
+            case R.id.imageBack:
+                startActivity(new Intent(this, EntryActivity.class));
+                break;
+        }
     }
 }
