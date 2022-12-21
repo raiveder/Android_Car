@@ -157,7 +157,7 @@ public class ServiceShowActivity extends AppCompatActivity implements View.OnCli
 
         alertDialogBuilder.setPositiveButton("Удалить", (dialog, id) -> {
 
-            deleteData(idService, position);
+            deleteData(idService);
         });
 
         alertDialogBuilder.setNegativeButton("Отмена", (dialog, id) -> {
@@ -166,7 +166,7 @@ public class ServiceShowActivity extends AppCompatActivity implements View.OnCli
         return alertDialogBuilder;
     }
 
-    private void deleteData(int id, int position) {
+    private void deleteData(int id) {
 
         ProgressBar pbWait = findViewById(R.id.pbWait);
         pbWait.setVisibility(View.VISIBLE);
