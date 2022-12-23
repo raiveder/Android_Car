@@ -77,10 +77,17 @@ public class ServiceShowActivity extends AppCompatActivity implements View.OnCli
                                    Response<List<Services_ListValue>> response) {
 
                 listServices = response.body();
-                adapter = new AdapterServices(ServiceShowActivity.this, listServices);
+
+                if (listServices.size() == 0) {
+                    Toast.makeText(ServiceShowActivity.this,
+                            "Обращений в сервис не обнаружено", Toast.LENGTH_LONG).show();
+                } else {
+                    adapter = new AdapterServices(ServiceShowActivity.this, listServices);
+                    setCaption();
+                    listView.setAdapter(adapter);
+                }
+
                 pbWait.setVisibility(View.GONE);
-                setCaption();
-                listView.setAdapter(adapter);
             }
 
             @Override

@@ -48,6 +48,7 @@
     <string name="add_new_tm">Добавить новое ТО</string>
     <string name="login">Логин</string>
     <string name="password">Пароль</string>
+    <string name="password_repeat">Повторите пароль</string>
     <string name="entry">Войти</string>
     <string name="registration">Регистрация</string>
     <string name="save">Сохранить</string>

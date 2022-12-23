@@ -68,10 +68,15 @@ public class ShowCarsActivity extends AppCompatActivity implements View.OnClickL
             public void onResponse(Call<List<CarsValue>> call, Response<List<CarsValue>> response) {
 
                 listCar = response.body();
-                adapter = new AdapterCars(ShowCarsActivity.this, listCar);
-                ProgressBar pbWait = findViewById(R.id.pbWait);
-                pbWait.setVisibility(View.GONE);
-                listView.setAdapter(adapter);
+
+                if (listCar.size() == 0) {
+                    Toast.makeText(ShowCarsActivity.this,
+                            "Список автомобилей пуст", Toast.LENGTH_LONG).show();
+                } else {
+                    adapter = new AdapterCars(ShowCarsActivity.this, listCar);
+                    listView.setAdapter(adapter);
+                }
+                findViewById(R.id.pbWait).setVisibility(View.GONE);
             }
 
             @Override
